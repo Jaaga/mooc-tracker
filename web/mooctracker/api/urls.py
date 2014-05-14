@@ -3,6 +3,9 @@ from .views import *
 
 urlpatterns = patterns('',
     
-    (r'^status/$', status),
-        
+  (r'^status/$', status),
+
+  # students API
+  (r'^students/$', students)
+
 )
