@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.core.context_processors import csrf
 import json
 
 from students.models import Student
@@ -23,7 +24,6 @@ def students(request,id=0):
     response = []
     students = Student.objects.all()
     for student in students:
-      print student
       obj = {}
       obj.update({ 'id': student.id })
       obj.update({ 'name': student.name })
