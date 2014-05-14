@@ -17,7 +17,13 @@ var ENTER_KEY = 13;
 
     initialize: function() {
 
+      // cache DOMs
       this.$newStudent = this.$('#newStudent');
+      this.$studentList = this.$('#studentList');
+
+      // listen to events
+      this.listenTo(app.StudentCollection, 'add', this.addOne);
+      this.listenTo(app.StudentCollection, 'reset', this.addAll);
 
     },
 
@@ -34,6 +40,17 @@ var ENTER_KEY = 13;
       });
 
       this.$newStudent.val('');
+
+    },
+
+    addOne: function(student) {
+      var view = new app.StudentView({model: student});
+      this.$studentList.append(view.render().el);
+    },
+
+    addAll: function() {
+      this.$studentList.html('');
+      app.StudentCollection.each(this.addOne, this);
 
     }
 

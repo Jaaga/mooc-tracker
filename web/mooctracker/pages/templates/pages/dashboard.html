@@ -27,12 +27,29 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-  <div class="container-fluid" id="app">
+  <div class="container" id="app">
     
     <div class="row">
       <div class="col-md-12">
         <input type="text" class="form-control" id="newStudent" placeholder="Enter name of student and press enter">
+        <hr>
       </div>
+    </div>
+
+    <div class="row">
+    
+      <div class="col-md-4">
+    
+        <h3>
+          Student List <br>
+          <small><span id="studentCount">0</span> students enrolled</small>
+        </h3>
+        <hr>
+
+        <ul id="studentList"></ul>
+
+      </div>
+    
     </div>
 
   </div>
@@ -46,6 +63,7 @@
   <!-- app specific code -->
   <script src="/static/js/models/student.js"></script>
   <script src="/static/js/collections/students.js"></script>
+  <script src="/static/js/views/student-view.js"></script>
   <script src="/static/js/views/main-view.js"></script>
   <script src="/static/js/app.js"></script>
 </body>
