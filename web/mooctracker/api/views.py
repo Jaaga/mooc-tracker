@@ -18,7 +18,9 @@ def status(request):
 
 # students api implementing GET, POST, PUT & DELETE for Student model
 def students(request):
-
+  
+  # GET Method
+  
   if request.method == 'GET':
     response = []
     students = Student.objects.all()
@@ -32,29 +34,45 @@ def students(request):
     json.dumps(response),
     content_type = 'application/json')
 
-  # POST method  
+  # POST Method  
 
   elif request.method == 'POST':
     requestJson = json.loads(request.body)
     studentName = requestJson['name']
     newStudent = Student(name = studentName)
     newStudent.save()
-    addedStudent = {'id' : newStudent.id , 'name' : newStudent.name}
+    addedStudent = {'id' : newStudent.id, 'name' : newStudent.name}
 
     
     return HttpResponse(
       json.dumps(addedStudent),
-      content_type='application/json')
+      content_type = 'application/json')
+ 
+  # UPDATE Method
 
-  #DELETE Method
+  elif request.method == 'PUT':
+  	requestJson = json.loads(request.body)
+  	studentId = requestJson['id']
+  	studentName = requestJson['name']
+  	updateStudent = Student(id = studentId, name = studentName )
+  	updateStudent.save()
+  	addedStudent = {'id' : updateStudent.id, 'name' : updateStudent.name}
+
+  	return HttpResponse(
+  		json.dumps(addedStudent),
+		content_type = 'application/json')
+
+  
+  # DELETE Method
   
   elif request.method == 'DELETE':
     requestJson = json.loads(request.body)
-    sid = requestJson['id']
-    Student.objects.get(id=sid).delete()
-    message={ 'success' : 'True', 'id': sid}
+    studentId = requestJson['id']
+    Student.objects.get(id = studentId).delete()
+    message={ 'success' : 'True', 'id': studentId}
+
     return HttpResponse(
       json.dumps(message),
-      content_type='application/json')
+      content_type = 'application/json')
 
     
