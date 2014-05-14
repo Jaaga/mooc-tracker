@@ -3,8 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard - MOOC Tracker</title>
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 </head>
 <body>
-  
+
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MOOC Tracker</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Dashboard</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container-fluid" id="app">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <input type="text" class="form-control" id="newStudent" placeholder="Enter name of student and press enter">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- js libs -->
+  <script src="/static/js/lib/jquery.min.js"></script>
+  <script src="/static/js/lib/bootstrap.min.js"></script>
+  <script src="/static/js/lib/underscore.js"></script>
+  <script src="/static/js/lib/backbone.js"></script>
+
+  <!-- app specific code -->
+  <script src="/static/js/models/student.js"></script>
+  <script src="/static/js/collections/students.js"></script>
+  <script src="/static/js/views/main-view.js"></script>
+  <script src="/static/js/app.js"></script>
 </body>
 </html>

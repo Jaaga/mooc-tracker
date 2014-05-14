@@ -8,7 +8,7 @@ var app = app || {};
 
   var studentCollection = Backbone.Collection.extend({
     model: app.Student,
-    url: '/api/students'
+    url: '/api/students/'
   });
 
   app.StudentCollection = new studentCollection();

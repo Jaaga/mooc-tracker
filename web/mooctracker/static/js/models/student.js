@@ -8,7 +8,7 @@ var app = app || {};
 
   app.Student = Backbone.Model.extend({
     defaults: {
-      title: 'Unknown Name'
+      name: 'Unknown Name'
     },
     idAttribute: 'id'
   });

@@ -34,7 +34,8 @@ def students(request,id=0):
     content_type = 'application/json')
 
   elif request.method == 'POST':
-    studentName = request.POST['name']
+    requestJson = json.loads(request.body)
+    studentName = requestJson['name']
     newStudent = Student(name = studentName)
     newStudent.save()
     addedStudent = {'id' : newStudent.id , 'name' : newStudent.name}
