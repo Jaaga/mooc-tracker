@@ -25,6 +25,7 @@ var ENTER_KEY = 13;
       // listen to events
       this.listenTo(app.StudentCollection, 'add', this.addOne);
       this.listenTo(app.StudentCollection, 'reset', this.addAll);
+      this.listenTo(app.StudentCollection, 'remove', this.showStudentsCount);
 
     },
 

@@ -40,10 +40,10 @@
     
       <div class="col-md-4">
     
-        <h3>
+        <h2>
           Student List <br>
           <small><span id="studentsCount">0</span> students enrolled</small>
-        </h3>
+        </h2>
         <hr>
 
         <ul id="studentList"></ul>
@@ -53,6 +53,16 @@
     </div>
 
   </div>
+
+  <!-- templates -->
+  <script type="text/template" id="studentTemplate">
+
+    <h3>
+      <a href="#"><%= name %></a> <br>
+      <small> <button class="btn btn-xs btn-danger studentRemoveButton"><span class="glyphicon glyphicon-remove-sign"></span></button> </small>
+    </h3>
+    
+  </script>
 
   <!-- js libs -->
   <script src="/static/js/lib/jquery.min.js"></script>
