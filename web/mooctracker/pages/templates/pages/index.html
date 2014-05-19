@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MOOC Tracker</title>
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MOOC Tracker</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <span class="navbar-form navbar-right">
+              <button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Sign in</button>
+            </span>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container">
+    
+    <div class="row">      
+      <div class="col-md-offset-2 col-md-8">
+        <img src="/static/img/home.jpg" alt="" class="img-responsive">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <h2>Track all your MOOCs in One Place!</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-offset-4 col-md-2">
+        <a data-toggle="modal" data-target="#loginModal" class="btn btn-success btn-lg">
+          Connect with Mooc Tracker <span class="glyphicon glyphicon-ok"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+        <p class="pull-right">
+          MOOC Tracker is an <a href="https://github.com/Jaaga/mooc-tracker">opensource</a> app built at <a href="http://jaaga.in/">Jaaga</a>.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3>Sign in into Mooc Tracker</h3>
+      </div>
+        
+      <div class="col-md-6">
+        <h4>Signup with Social Accounts</h4>
+
+      </div>
+
+      <div class="col-md-6">
+        <h4>Signup with Email</h4>
+
+      </div>
+
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- js libs -->
+  <script src="/static/js/lib/jquery.min.js"></script>
+  <script src="/static/js/lib/bootstrap.min.js"></script>
+</body>
+</html>
