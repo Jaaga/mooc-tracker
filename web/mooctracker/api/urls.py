@@ -6,6 +6,8 @@ urlpatterns = patterns('',
   (r'^status/$', status),
 
   # students API
-  (r'^students/$', students)
+  (r'^students/$', students),
+  # backbone sends id for delete as a pretty URL
+  (r'^students/(?P<pk>\w+)$', students)
 
 )

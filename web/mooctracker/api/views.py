@@ -17,7 +17,7 @@ def status(request):
   )
 
 # students api implementing GET, POST, PUT & DELETE for Student model
-def students(request):
+def students(request, pk=None):
   
   # GET Method
   
@@ -51,25 +51,25 @@ def students(request):
   # UPDATE Method
 
   elif request.method == 'PUT':
-  	requestJson = json.loads(request.body)
-  	studentId = requestJson['id']
-  	studentName = requestJson['name']
-  	updateStudent = Student(id = studentId, name = studentName )
-  	updateStudent.save()
-  	addedStudent = {'id' : updateStudent.id, 'name' : updateStudent.name}
+    requestJson = json.loads(request.body)
+    studentId = requestJson['id']
+    studentName = requestJson['name']
+    student = Student.objects.get(id = studentId)
+    student.name = studentName
+    student.save()
+    addedStudent = {'id' : updateStudent.id, 'name' : updateStudent.name}
 
-  	return HttpResponse(
-  		json.dumps(addedStudent),
-		content_type = 'application/json')
+    return HttpResponse(
+      json.dumps(addedStudent),
+      content_type = 'application/json'
+    )
 
   
   # DELETE Method
   
   elif request.method == 'DELETE':
-    requestJson = json.loads(request.body)
-    studentId = requestJson['id']
-    Student.objects.get(id = studentId).delete()
-    message={ 'success' : 'True', 'id': studentId}
+    Student.objects.get(id = pk).delete()
+    message={ 'success' : 'True'}
 
     return HttpResponse(
       json.dumps(message),

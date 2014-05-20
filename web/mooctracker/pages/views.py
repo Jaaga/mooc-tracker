@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 # index page
 def index(request):
   # for the time being, redirecting to dashboard
-  return HttpResponseRedirect('/pages/dashboard/')
+  return render_to_response('pages/index.html')
 
 def dashboard(request):
 

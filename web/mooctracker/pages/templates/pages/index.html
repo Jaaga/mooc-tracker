@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MOOC Tracker</title>
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MOOC Tracker</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <span class="navbar-form navbar-right">
+              <button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Sign in</button>
+            </span>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container">
+    
+    <div class="row">      
+      <div class="col-md-offset-2 col-md-8">
+        <img src="/static/img/home.jpg" alt="" class="img-responsive">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <h2>Track all your MOOCs in One Place!</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-offset-4 col-md-2">
+        <a data-toggle="modal" data-target="#loginModal" class="btn btn-success btn-lg">
+          Connect with Mooc Tracker <span class="glyphicon glyphicon-ok"></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+        <p class="pull-right">
+          MOOC Tracker is an <a href="https://github.com/Jaaga/mooc-tracker">opensource</a> app built at <a href="http://jaaga.in/">Jaaga</a>.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h3>Sign in into Mooc Tracker</h3>
+      </div>
+        
+      <div class="col-md-6">
+        <h4>Signup with Social Accounts</h4>
+        <span id="signinButton">
+          <span
+            class="g-signin"
+            data-callback="signinCallback"
+            data-clientid="CLIENT_ID"
+            data-cookiepolicy="single_host_origin"
+            data-requestvisibleactions="http://schemas.google.com/AddActivity"
+            data-scope="https://www.googleapis.com/auth/plus.login">
+          </span>
+        </span>
+
+      </div>
+
+      <div class="col-md-6">
+        <h4>Signup with Email</h4>
+
+        <div id="loginForm">
+          <form action="/login/" method="POST">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-success">Login</button>
+          </form>
+          <small> Dont have an account? <a href="#" id="createAccountLink">Create Now!</a></small>
+        </div>
+
+        <div id="signupForm" style="display:none;">
+          <form action="/signup/" method="POST">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="name" class="form-control" id="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <label for="repeatpassword">Repeat Password</label>
+              <input type="repeatpassword" class="form-control" id="password" placeholder="Repeat Password">
+            </div>
+            <button type="submit" class="btn btn-success">Create Account</button>
+          </form>
+          <small> Have an account? Login <a href="#" id="signinLink">here</a>.</small>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- js libs -->
+  <script src="/static/js/lib/jquery.min.js"></script>
+  <script src="/static/js/lib/bootstrap.min.js"></script>
+
+  <!-- app code -->
+  <script src="/static/js/index.js"></script>
+
+  <!-- signin with google -->
+  <script type="text/javascript">
+    (function() {
+     var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+     po.src = 'https://apis.google.com/js/client:plusone.js';
+     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+   })();
+  </script>
+
+</body>
+</html>
