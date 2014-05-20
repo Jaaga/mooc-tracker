@@ -1,0 +1,86 @@
+package us.jaaga.cleanhttptestapp;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.os.AsyncTask;
+import android.util.Log;
+
+public class AsyncHttpTask extends AsyncTask<String, Void, String>{
+	
+	private HttpHandler mHttpHandler;
+	
+	public AsyncHttpTask(HttpHandler httpHandler){
+		
+		this.mHttpHandler = httpHandler;
+	}
+	
+	
+	@Override
+	protected String doInBackground(String... arg0) {
+		
+		InputStream mInputStream;
+		String result = "";
+		
+		try{
+			
+			//Create HttpClient
+			HttpClient mHttpClient = new DefaultHttpClient();
+			
+			//make the http request
+			HttpResponse mHttpResponse = mHttpClient.execute(mHttpHandler.getHttpRequestMethod());
+			
+			//receive response as InputStream
+			mInputStream = mHttpResponse.getEntity().getContent();
+			
+			//Convert Input Stream to String
+			if(mInputStream != null){
+				
+				result = convertInputStreamToString(mInputStream);
+			}
+			
+			else{
+				
+				result = "Error: Did not work";
+			}
+			
+			
+		}catch(Exception e){
+			
+			Log.d("Input Stream", e.getLocalizedMessage());
+		}
+		
+		
+		return result;
+	}
+
+
+	@Override
+	protected void onPostExecute(String result) {
+		
+		mHttpHandler.onResponse(result);
+	}
+
+	
+	private static String convertInputStreamToString(InputStream mInputStream) throws IOException{
+		
+		BufferedReader mBufferedReader = new BufferedReader(new InputStreamReader(mInputStream));
+		String line = "";
+		String result="";
+		
+		while((line = mBufferedReader.readLine()) != null){
+			
+			result += line;
+		}
+		
+		mInputStream.close();
+			
+		return result;
+	}
+}

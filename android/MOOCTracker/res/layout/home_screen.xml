@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="us.jaaga.mooctracker.LandingPage"
+    
+    
+    android:background="#ffffff"
+    >
+<!--     android:background="@drawable/balloon_bg" -->
+     
+     
+    
+    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/linearlayout_bg"
+        android:padding="10dp"
+        
+        >
+        <Button 
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+			android:padding="10dp"
+			android:layout_margin="4dp"
+			android:background="@drawable/button_default_bg"
+			style="@style/DefaultButtonText"
+			android:text="@string/loginButton"
+            />
+        
+           <Button 
+            android:id="@+id/signUpButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+			android:padding="10dp"
+			android:layout_margin="4dp"
+			android:background="@drawable/button_default_bg"
+			style="@style/DefaultButtonText"
+			android:text="@string/signupButton"
+            />
+        
+    </LinearLayout>
+    
+</RelativeLayout>
+ 	
