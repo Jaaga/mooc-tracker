@@ -42,6 +42,7 @@ var app = app || {};
       this.$newGithubUrl = $('#newGithubUrl');
       this.$newProjectFormError = $('#newProjectFormError');
       this.$projectList = $('#projectList');
+      this.$projectCount = $('#projectCount');
 
       // listen to events
       this.listenTo(app.CourseCollection, 'add', this.addOneCourse);
@@ -152,7 +153,7 @@ var app = app || {};
     addOneProject: function(project) {
       var view = new app.ProjectView({model: project});
       this.$projectList.append(view.render().el);
-      this.showCourseCount();
+      this.showProjectCount();
     },
 
     clearProjectForm: function() {
@@ -163,6 +164,12 @@ var app = app || {};
       this.$newGithubUrl.val('');
       this.$saveProjectButton.attr('disabled', false);
     },
+
+    showProjectCount: function() {
+
+      this.$projectCount.html(app.ProjectCollection.length);
+
+    }
 
   });
 
