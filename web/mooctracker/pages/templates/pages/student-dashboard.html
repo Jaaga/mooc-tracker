@@ -36,23 +36,59 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-  <div class="container">
+  <div class="container" id="app">
     
     <div class="row">
       <div class="col-md-12">
         <h2>John's Courses &amp; Projects
-          <br> <small>3 Courses, 2 Projects</small>
+          <br> <small><span id="courseCount">0</span> Courses, 2 Projects</small>
         </h2>
 
         <span class="pull-right">
 
-          <button class="btn btn-info"> <span class="glyphicon glyphicon-plus"></span> Courses</button>
+          <button class="btn btn-info" id="addCourseButton"> <span class="glyphicon glyphicon-plus"></span> Course</button>
           
-          <button class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> Projects</button>
+          <button class="btn btn-primary"> <span class="glyphicon glyphicon-plus"></span> Project</button>
 
         </span>
 
       </div>
+
+      <div class="col-md-8" id="courseForm" style="display:none">
+
+        <h3>Add new Course</h3>
+        <div class="alert alert-danger" style="display:none" id="newCourseFormError">
+          <strong>Error: </strong> Please enter all fields.
+        </div>
+        
+        <div>
+          <div class="form-group">
+            <label for="courseTitle">Course Title</label>
+            <input type="text" class="form-control" id="newCourseTitle" placeholder="Enter Course Title">
+          </div>
+          <div class="form-group">
+            <label for="courseUniversity">University</label>
+            <input type="text" class="form-control" id="newCourseUniversity" placeholder="Enter University Name">
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="courseStart">Start Date</label>
+                <input type="date" class="form-control" id="newCourseStart">
+              </div>  
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="courseStart">Start Date</label>
+                <input type="date" class="form-control" id="newCourseEnd">
+              </div>  
+            </div>
+          </div>
+          <button class="btn btn-success" id="saveCourseButton"> <span class="glyphicon glyphicon-ok"></span> Save</button>
+        </div>
+
+      </div>
+
     </div>
 
     <div class="row">
@@ -66,41 +102,12 @@
       <div class="col-md-6">
 
       <h3>Courses
-        <small>All / <a href="#">Present</a>  / <a href="#">Past</a></small>
+        <!-- <small>All / <a href="#">Present</a>  / <a href="#">Past</a></small> -->
       </h3>
       <hr>
 
-      <ul>
-        <li>
-          <h4>
-            <a href="#">Into to Computer Science</a> <br>
-            <small>University of Maryland, 21/3/2014 to 23/6/2014</small>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <a href="#">Into to Computer Science</a> <br>
-            <small>University of Maryland, 21/3/2014 to 23/6/2014</small>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <a href="#">Into to Computer Science</a> <br>
-            <small>University of Maryland, 21/3/2014 to 23/6/2014</small>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <a href="#">Into to Computer Science</a> <br>
-            <small>University of Maryland, 21/3/2014 to 23/6/2014</small>
-          </h4>
-        </li>
-        <li>
-          <h4>
-            <a href="#">Into to Computer Science</a> <br>
-            <small>University of Maryland, 21/3/2014 to 23/6/2014</small>
-          </h4>
-        </li>
+      <ul id="courseList">
+        
       </ul>
         
       </div>
@@ -110,43 +117,8 @@
         <h3>Projects</h3>
         <hr>
 
-        <ul>
-          <li>
-            <h4>
-              <a href="#">Student Job Board</a> <br>
-              <small>
-                A job board for students written in PHP + MySQL <br>
-                <a href="#">Project Site</a>, <a href="#">Github Repo</a>
-              </small>
-            </h4>
-          </li>
-          <li>
-            <h4>
-              <a href="#">Student Job Board</a> <br>
-              <small>
-                A job board for students written in PHP + MySQL <br>
-                <a href="#">Project Site</a>, <a href="#">Github Repo</a>
-              </small>
-            </h4>
-          </li>
-          <li>
-            <h4>
-              <a href="#">Student Job Board</a> <br>
-              <small>
-                A job board for students written in PHP + MySQL <br>
-                <a href="#">Project Site</a>, <a href="#">Github Repo</a>
-              </small>
-            </h4>
-          </li>
-          <li>
-            <h4>
-              <a href="#">Student Job Board</a> <br>
-              <small>
-                A job board for students written in PHP + MySQL <br>
-                <a href="#">Project Site</a>, <a href="#">Github Repo</a>
-              </small>
-            </h4>
-          </li>
+        <ul id="projectList">
+          
         </ul>      
         
       </div>
@@ -155,17 +127,45 @@
 
   </div>
 
+  <script type="text/template" id="courseTemplate">
+
+    <li>
+      <h4>
+        <a href="#"><%= name %></a> <br>
+        <small><%= university %>, <%= startDate %> to <%= endDate %> </small>
+      </h4>
+    </li>
+
+  </script>
+
+  <script type="text/template" id="courseTemplate">
+
+    <li>
+      <h4>
+        <a href="#"></a> <br>
+        <small>
+          A job board for students written in PHP + MySQL <br>
+          <a href="#">Project Site</a>, <a href="#">Github Repo</a>
+        </small>
+      </h4>
+    </li>
+
+  </script>
+
   <!-- js libs -->
   <script src="/static/js/lib/jquery.min.js"></script>
   <script src="/static/js/lib/bootstrap.min.js"></script>
   <script src="/static/js/lib/underscore.js"></script>
   <script src="/static/js/lib/backbone.js"></script>
+  <script src="/static/js/lib/backbone.js"></script>
+  <script src="/static/js/lib/backbone.localStorage-min.js"></script>
 
   <!-- app specific code -->
-  <script src="/static/js/models/student.js"></script>
-  <script src="/static/js/collections/students.js"></script>
-  <script src="/static/js/views/student-view.js"></script>
-  <script src="/static/js/views/main-view.js"></script>
-  <script src="/static/js/app.js"></script>
+  <script src="/static/js/models/course.js"></script>
+  <script src="/static/js/collections/courses.js"></script>
+  <script src="/static/js/views/student-main-view.js"></script>
+  <script src="/static/js/views/course-view.js"></script>
+  <script src="/static/js/student-app.js"></script>
+
 </body>
 </html>
