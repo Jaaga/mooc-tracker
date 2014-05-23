@@ -10,7 +10,7 @@ var app = app || {};
     model: app.Course,
 
     // save all the courses to localstorage for time being
-    localStorage: new Backbone.LocalStorage('mooc-tracker-backbone')
+    localStorage: new Backbone.LocalStorage('mooc-tracker-courses')
   });
 
   app.CourseCollection = new courseCollection();

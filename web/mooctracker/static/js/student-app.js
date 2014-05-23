@@ -4,9 +4,13 @@ var app = app || {};
 
 $(function() {
 
-  // start things by starting the main view
+  // start painting things by starting the main view
   new app.StudentMainView();
 
+  // fetch the courses
   app.CourseCollection.fetch();
+
+  // fetch the projects
+  app.ProjectCollection.fetch();
   
 });

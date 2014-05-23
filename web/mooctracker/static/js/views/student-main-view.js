@@ -11,12 +11,17 @@ var app = app || {};
 
     events: {
       'click #addCourseButton': 'showCourseForm',
-      'click #saveCourseButton': 'saveNewCourse'
+      'click #saveCourseButton': 'saveNewCourse',
+
+      'click #addProjectButton': 'showProjectForm',
+      'click #saveProjectButton': 'saveNewProject'
     },
 
     initialize: function() {
 
       // cache DOMs
+
+      // course elements
       this.$courseForm = $('#courseForm');
       this.$newCourseTitle = $('#newCourseTitle');
       this.$newCourseUniversity = $('#newCourseUniversity');
@@ -27,9 +32,20 @@ var app = app || {};
       this.$saveCourseButton = $('#saveCourseButton');
       this.$courseCount = $('#courseCount');
 
+      // project elements
+      this.$projectForm = $('#projectForm');
+      this.$addProjectButton = $('#addProjectButton');
+      this.$saveProjectButton = $('#saveProjectButton');
+      this.$newProjectName = $('#newProjectName');
+      this.$newProjectDescription = $('#newProjectDescription');
+      this.$newProjectSite = $('#newProjectSite');
+      this.$newGithubUrl = $('#newGithubUrl');
+      this.$newProjectFormError = $('#newProjectFormError');
+      this.$projectList = $('#projectList');
+
       // listen to events
-      this.listenTo(app.CourseCollection, 'add', this.addOne);
-      //this.listenTo(app.Todos, 'reset', this.addAll);
+      this.listenTo(app.CourseCollection, 'add', this.addOneCourse);
+      this.listenTo(app.ProjectCollection, 'add', this.addOneProject);
 
     },
 
@@ -70,22 +86,14 @@ var app = app || {};
 
       });
 
-      this.clearCourseForm();
       this.showCourseForm();
 
     },
 
-    addOne: function(course) {
+    addOneCourse: function(course) {
       var view = new app.CourseView({model: course});
       this.$courseList.append(view.render().el);
       this.showCourseCount();
-    },
-
-    addAll: function() {
-      this.showStudentsCount();
-      this.$studentList.html('');
-      app.StudentCollection.each(this.addOne, this);
-
     },
 
     showCourseCount: function() {
@@ -95,12 +103,66 @@ var app = app || {};
     },
 
     clearCourseForm: function() {
+      this.$newCourseFormError.hide();
       this.$newCourseTitle.val('');
       this.$newCourseUniversity.val('');
       this.$newCourseStart.val('');
       this.$newCourseEnd.val('');
       this.$saveCourseButton.attr('disabled', false);
-    }
+    },
+
+    showProjectForm: function() {
+
+      this.clearProjectForm();
+      this.$projectForm.fadeToggle();
+
+    },
+
+    saveNewProject: function() {
+
+      // disable button
+      this.$saveProjectButton.attr('disabled', true);
+
+      // validation
+      var name = this.$newProjectName.val();
+      var description = this.$newProjectDescription.val();
+      var projectSite = this.$newProjectSite.val();
+      var githubUrl = this.$newGithubUrl.val();
+
+      if(!name || !description || !projectSite || !githubUrl) {
+
+        this.$saveProjectButton.attr('disabled', false);
+        this.$newProjectFormError.show('fast');
+        return;
+
+      }
+
+      // create the project
+      app.ProjectCollection.create({
+        name: name,
+        description: description,
+        projectUrl: projectSite,
+        githubUrl: githubUrl
+      });
+
+      this.showProjectForm();
+
+    },
+
+    addOneProject: function(project) {
+      var view = new app.ProjectView({model: project});
+      this.$projectList.append(view.render().el);
+      this.showCourseCount();
+    },
+
+    clearProjectForm: function() {
+      this.$newProjectFormError.hide();
+      this.$newProjectName.val('');
+      this.$newProjectDescription.val('');
+      this.$newProjectSite.val('');
+      this.$newGithubUrl.val('');
+      this.$saveProjectButton.attr('disabled', false);
+    },
 
   });
 

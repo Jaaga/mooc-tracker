@@ -6,13 +6,13 @@ var app = app || {};
 
   // collection for students model
 
-  var courseCollection = Backbone.Collection.extend({
+  var projectCollection = Backbone.Collection.extend({
     model: app.Course,
 
     // save all the courses to localstorage for time being
-    localStorage: new Backbone.LocalStorage('mooc-tracker-backbone')
+    localStorage: new Backbone.LocalStorage('mooc-tracker-projects')
   });
 
-  app.CourseCollection = new courseCollection();
+  app.ProjectCollection = new projectCollection();
 
 })();
