@@ -4,4 +4,10 @@
 <fullyQualifiedTypeName name="info.androidhive.jsonparsing.R.id"/>
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="android.R.layout"/>
+<fullyQualifiedTypeName name="us.jaaga.mooctracker.LandingPage"/>
+<fullyQualifiedTypeName name="android.app.Activity"/>
+<fullyQualifiedTypeName name="android.os.Bundle"/>
+<fullyQualifiedTypeName name="us.jaaga.mooctracker.R.layout"/>
+<fullyQualifiedTypeName name="us.jaaga.mooctracker.R.id"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 </qualifiedTypeNameHistroy>

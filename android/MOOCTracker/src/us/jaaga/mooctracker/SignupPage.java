@@ -1,0 +1,41 @@
+package us.jaaga.mooctracker;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class SignupPage extends Activity {
+
+	EditText etEmail,etUserName,etPass;
+	Button btnSignIn;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.signup_screen);
+		
+		etEmail = (EditText) findViewById(R.id.etEmail);
+		etUserName = (EditText) findViewById(R.id.etUserName);
+		etPass = (EditText) findViewById(R.id.etPass);
+		btnSignIn = (Button) findViewById(R.id.btnSignIn);
+		
+		
+		
+	/*	btnSignIn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+
+				Intent intent = new Intent(SignupPage.this, MainActivity.class);
+				startActivity(intent);
+				
+			}
+		});*/
+		
+	}
+
+	
+	
+}
