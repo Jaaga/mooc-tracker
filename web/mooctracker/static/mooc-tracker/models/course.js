@@ -8,10 +8,7 @@ var app = app || {};
 
   app.Course = Backbone.Model.extend({
     defaults: {
-      name: 'Unknown Project',
-      description: 'Project description',
-      projectUrl: '#',
-      githubUrl: '#'
+      name: 'Unknown Course'
     }
   });
 
