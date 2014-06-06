@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard - MOOC Tracker</title>
+  <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MOOC Tracker</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Dashboard</a></li>
+          <li><a href="#">Courses</a></li>
+          <li><a href="#">Projects</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <span class="navbar-form navbar-right">
+              <button class="btn btn-inverse">Logout</button>
+            </span>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container" id="app">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <h2>John's Courses &amp; Projects
+          <br> <small><span id="courseCount">0</span> Courses, <span id="projectCount">0</span> Projects</small>
+        </h2>
+
+        <span class="pull-right">
+
+          <button class="btn btn-info" id="addCourseButton"> <span class="glyphicon glyphicon-plus"></span> Course</button>
+          
+          <button class="btn btn-primary" id="addProjectButton"> <span class="glyphicon glyphicon-plus"></span> Project</button>
+
+        </span>
+
+      </div>
+
+      <div class="col-md-8" id="courseForm" style="display:none">
+
+        <h3>Add new Course</h3>
+        <div class="alert alert-danger" style="display:none" id="newCourseFormError">
+          <strong>Error: </strong> Please enter all fields.
+        </div>
+        
+        <div>
+          <div class="form-group">
+            <label for="courseName">University</label>
+            <select class="form-control" id="courseName">
+            </select>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="courseStart">Start Date</label>
+                <input type="date" class="form-control" id="courseStart">
+              </div>  
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="courseEnd">End Date</label>
+                <input type="date" class="form-control" id="courseEnd">
+              </div>  
+            </div>
+          </div>
+          <button class="btn btn-success" id="saveCourseButton"> <span class="glyphicon glyphicon-ok"></span> Save</button>
+        </div>
+
+      </div>
+
+      <div class="col-md-8" id="projectForm" style="display:none">
+
+        <h3>Add new Project</h3>
+        <div class="alert alert-danger" style="display:none" id="newProjectFormError">
+          <strong>Error: </strong> Please enter all fields.
+        </div>
+        
+        <div>
+          <div class="form-group">
+            <label for="newProjectName">Project Title</label>
+            <input type="text" class="form-control" id="newProjectTitle" placeholder="Enter Project Title">
+          </div>
+          <div class="form-group">
+            <label for="newProjectDescription">Project Description</label>
+            <input type="text" class="form-control" id="newProjectDescription" placeholder="Brief description of your project">
+          </div>
+          <div class="form-group">
+            <label for="newProjectSite">Project Site</label>
+            <input type="url" class="form-control" id="newProjectSite" placeholder="URL for your project if any.">
+          </div>
+          <div class="form-group">
+            <label for="newGithubUrl">Github Url</label>
+            <input type="url" class="form-control" id="newGithubUrl" placeholder="URL for Github repo if any.">
+          </div>
+          
+          <button class="btn btn-success" id="saveProjectButton"> <span class="glyphicon glyphicon-ok"></span> Save</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      
+      <div class="col-md-6">
+
+      <h2>Courses 
+        <small>All / <a href="#">Present</a>  / <a href="#">Past</a></small>
+      </h2>
+      <hr>
+
+      <ul id="courseList">
+        
+      </ul>
+        
+      </div>
+
+      <div class="col-md-6">
+
+        <h3>Projects</h3>
+        <hr>
+
+        <ul id="projectList">
+          
+        </ul>      
+        
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+        <p class="pull-right">
+          MOOC Tracker is an <a href="https://github.com/Jaaga/mooc-tracker">opensource</a> app built at <a href="http://jaaga.in/">Jaaga</a>.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="text/template" id="courseSelectTemplate">
+    <option value="0">Select Course</option>
+    <% _.each(courses, function(course, index) { %>
+    <option value="<%= course.get('id') %>"><%= course.get('title') %></option>
+    <% }) %>
+  </script>
+
+  <script type="text/template" id="studentCourseTemplate">
+    <h3>
+      <a href="#"><%= courseTitle %></a> <br>
+      <small> <%= courseStart %> to <%= courseEnd %> </small>
+    </h3>
+    <button class="btn btn-danger btn-xs courseDeleteButton">
+      <span class="glyphicon glyphicon-remove-sign"></span>
+    </button>
+  </script>
+
+  <script type="text/template" id="projectTemplate">
+    <h3>
+      <a href="#"> <%= title %> </a> <br>
+      <small>
+        <%= description %> <br>
+        <a href="<%= projectSite %>">Project Site</a>, <a href="<%= githubUrl %>">Github Repo</a>
+      </small>
+    </h3>
+    <button class="btn btn-danger btn-xs projectDeleteButton">
+      <span class="glyphicon glyphicon-remove-sign"></span>
+    </button>
+  </script>
+
+  <!-- js libs -->
+  <script src="lib/js/jquery.min.js"></script>
+  <script src="lib/js/bootstrap.min.js"></script>
+  <script src="lib/js/underscore.js"></script>
+  <script src="lib/js/backbone.js"></script>
+  <script src="lib/js/backbone.js"></script>
+
+  <!-- app specific code -->
+
+  <!-- models -->
+  <script src="models/course.js"></script>
+  <script src="models/studentcourse.js"></script>
+  <script src="models/project.js"></script>
+
+  <!-- collections -->
+  <script src="collections/courses.js"></script>
+  <script src="collections/studentcourses.js"></script>
+  <script src="collections/projects.js"></script>
+
+  <!-- views -->
+  <script src="views/student-main-view.js"></script>
+  <script src="views/studentcourse-view.js"></script>
+  <script src="views/project-view.js"></script>
+
+  <!-- main app code -->
+  <script src="app.js"></script>
+
+</body>
+</html>

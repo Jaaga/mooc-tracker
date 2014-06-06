@@ -15,7 +15,7 @@ var app = app || {};
     reset: true
   });
 
-  new app.StudentMainView();
+  app.dashboardView = new app.StudentMainView();
 
 
 })();
