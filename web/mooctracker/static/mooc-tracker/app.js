@@ -8,6 +8,12 @@ var app = app || {};
   app.CourseCollection.fetch({
     reset: true
   });
+  app.StudentCourseCollection.fetch({
+    reset: true
+  });
+  app.ProjectCollection.fetch({
+    reset: true
+  });
 
   new app.StudentMainView();
 

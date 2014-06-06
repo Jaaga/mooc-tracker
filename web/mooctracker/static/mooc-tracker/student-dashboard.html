@@ -95,8 +95,8 @@
         
         <div>
           <div class="form-group">
-            <label for="newProjectName">Project Name</label>
-            <input type="text" class="form-control" id="newProjectName" placeholder="Enter Project Name">
+            <label for="newProjectName">Project Title</label>
+            <input type="text" class="form-control" id="newProjectTitle" placeholder="Enter Project Title">
           </div>
           <div class="form-group">
             <label for="newProjectDescription">Project Description</label>
@@ -128,9 +128,9 @@
       
       <div class="col-md-6">
 
-      <h3>Courses
-        <!-- <small>All / <a href="#">Present</a>  / <a href="#">Past</a></small> -->
-      </h3>
+      <h2>Courses 
+        <small>All / <a href="#">Present</a>  / <a href="#">Past</a></small>
+      </h2>
       <hr>
 
       <ul id="courseList">
@@ -170,29 +170,27 @@
     <% }) %>
   </script>
 
-  <script type="text/template" id="courseTemplate">
-
-    <li>
-      <h4>
-        <a href="#"><%= name %></a> <br>
-        <small><%= university %>, <%= startDate %> to <%= endDate %> </small>
-      </h4>
-    </li>
-
+  <script type="text/template" id="studentCourseTemplate">
+    <h3>
+      <a href="#"><%= courseTitle %></a> <br>
+      <small> <%= courseStart %> to <%= courseEnd %> </small>
+    </h3>
+    <button class="btn btn-danger btn-xs courseDeleteButton">
+      <span class="glyphicon glyphicon-remove-sign"></span>
+    </button>
   </script>
 
   <script type="text/template" id="projectTemplate">
-
-    <li>
-      <h4>
-        <a href="#"> <%= name %> </a> <br>
-        <small>
-          <%= description %> <br>
-          <a href="<%= projectUrl %>">Project Site</a>, <a href="<%= githubUrl %>">Github Repo</a>
-        </small>
-      </h4>
-    </li>
-
+    <h3>
+      <a href="#"> <%= title %> </a> <br>
+      <small>
+        <%= description %> <br>
+        <a href="<%= projectSite %>">Project Site</a>, <a href="<%= githubUrl %>">Github Repo</a>
+      </small>
+    </h3>
+    <button class="btn btn-danger btn-xs projectDeleteButton">
+      <span class="glyphicon glyphicon-remove-sign"></span>
+    </button>
   </script>
 
   <!-- js libs -->
@@ -206,12 +204,18 @@
 
   <!-- models -->
   <script src="models/course.js"></script>
+  <script src="models/studentcourse.js"></script>
+  <script src="models/project.js"></script>
 
   <!-- collections -->
   <script src="collections/courses.js"></script>
+  <script src="collections/studentcourses.js"></script>
+  <script src="collections/projects.js"></script>
 
   <!-- views -->
   <script src="views/student-main-view.js"></script>
+  <script src="views/studentcourse-view.js"></script>
+  <script src="views/project-view.js"></script>
 
   <!-- main app code -->
   <script src="app.js"></script>
