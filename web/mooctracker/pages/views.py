@@ -8,4 +8,7 @@ def index(request):
 
 def dashboard(request):
 
-  return render_to_response('pages/dashboard.html')
+  return render_to_response('pages/admin-dashboard.html')
+
+def student_dashboard(request):
+  return render_to_response('pages/student-dashboard.html')

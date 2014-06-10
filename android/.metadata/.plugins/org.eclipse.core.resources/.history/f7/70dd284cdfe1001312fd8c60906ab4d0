@@ -1,0 +1,10 @@
+package us.jaaga.mooctracker;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class SignupPage extends Activity {
+
+	
+	
+}

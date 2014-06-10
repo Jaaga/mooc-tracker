@@ -12,6 +12,8 @@
     <string name="signUpHint">Sign Up</string>
     <string name="signInHint">Sign In</string>
     <string name="action_settings"></string>
+    <string name="googleplus">Sign In with Google</string>
+    <string name="signup">Sign Up</string>
     
     <style name="DefaultButtonText">
        <item name="android:layout_width">fill_parent</item>

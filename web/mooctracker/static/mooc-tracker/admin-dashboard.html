@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - MOOC Tracker</title>
+  <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MOOC Tracker</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="student-dashboard.html">Dashboard</a></li>
+          <li><a href="#">Courses</a></li>
+          <li><a href="#">Students</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <span class="navbar-form navbar-right">
+              <button class="btn btn-inverse">Logout</button>
+            </span>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container" id="app">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Jaaga Study
+          <br> <small><span id="courseCount">2</span> Courses, <span id="projectCount">1</span> Student</small>
+        </h2>
+
+        <span class="pull-right">
+
+          <button class="btn btn-info" id="addCourseButton"> <span class="glyphicon glyphicon-plus"></span> Course</button>
+          
+          <button class="btn btn-primary" id="addStudentButton"> <span class="glyphicon glyphicon-plus"></span> Student</button>
+
+        </span>
+
+      </div>
+
+      <div class="col-md-8" id="courseForm" style="display:none">
+
+        <h3>Add new Course</h3>
+        <div class="alert alert-danger" style="display:none" id="newCourseFormError">
+          <strong>Error: </strong> Please enter all fields.
+        </div>
+        
+        <div>
+          <div class="form-group">
+            <label for="courseName">University</label>
+            <input type="text" id="courseName" class="form-control" placeholder="Course Title">
+            </select>
+          </div>
+          <button class="btn btn-success" id="saveCourseButton"> <span class="glyphicon glyphicon-ok"></span> Save</button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      
+      <div class="col-md-12">
+        <h2> Students </h2>
+        <hr>
+      </div>
+
+      <div class="col-md-12">
+        <ul id="studentList">
+          <li>
+            <h3>
+              <a href="admin-student-detail.html">John</a> <br>
+            </h3>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+        <p class="pull-right">
+          MOOC Tracker is an <a href="https://github.com/Jaaga/mooc-tracker">opensource</a> app built at <a href="http://jaaga.in/">Jaaga</a>.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- js libs -->
+  <script src="lib/js/jquery.min.js"></script>
+  <script src="lib/js/bootstrap.min.js"></script>
+  <script src="lib/js/underscore.js"></script>
+  <script src="lib/js/backbone.js"></script>
+
+  <!-- app specific code -->
+
+  <!-- models -->
+
+  <!-- collections -->
+
+  <!-- views -->
+
+  <!-- main app code -->
+
+</body>
+</html>
