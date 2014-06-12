@@ -37,11 +37,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # installed apps
+    'rest_framework',
+    'social_auth',
+
     # our own apps
     'api',
     'students',
     'pages',
-    'social_auth',
 )
 
 MIDDLEWARE_CLASSES = (
