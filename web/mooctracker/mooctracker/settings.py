@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'students',
     'pages',
     'courses',
+    'projects',
 )
 
 MIDDLEWARE_CLASSES = (
