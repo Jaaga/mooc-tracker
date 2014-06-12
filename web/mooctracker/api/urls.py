@@ -1,13 +1,11 @@
-from django.conf.urls import patterns
+from django.conf.urls import patterns, url, include
 from .views import *
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'students', StudentViewSet)
 
 urlpatterns = patterns('',
-    
-  (r'^status/$', status),
-
-  # students API
-  (r'^students/$', students),
-  # backbone sends id for delete as a pretty URL
-  (r'^students/(?P<pk>\w+)$', students)
-
+  url(r'^', include(router.urls)),
+  url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
