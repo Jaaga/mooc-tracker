@@ -3,10 +3,11 @@ from django.core.context_processors import csrf
 import json
 
 from rest_framework import viewsets, permissions, renderers
-from .serializers import StudentSerializer, CourseSerializer, ProjectSerializer
+from .serializers import StudentSerializer, CourseSerializer, ProjectSerializer, AcademicSerializer
 from students.models import Student
 from courses.models import Course
 from projects.models import Project
+from academics.models import Academic
 
 class StudentViewSet(viewsets.ReadOnlyModelViewSet):
   """
@@ -28,3 +29,10 @@ class ProjectViewSet(viewsets.ModelViewSet):
   """
   queryset = Project.objects.all()
   serializer_class = ProjectSerializer
+
+class AcademicViewSet(viewsets.ModelViewSet):
+  """
+  This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' actions. 
+  """
+  queryset = Academic.objects.all()
+  serializer_class = AcademicSerializer

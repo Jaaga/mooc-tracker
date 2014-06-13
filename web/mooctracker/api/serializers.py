@@ -2,6 +2,7 @@ from rest_framework import serializers
 from students.models import Student
 from courses.models import Course
 from projects.models import Project
+from academics.models import Academic
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -20,3 +21,9 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
   class Meta:
     model = Project
     fields = ('id', 'project_name', 'url')
+
+class AcademicSerializer(serializers.HyperlinkedModelSerializer):
+
+  class Meta:
+    model = Academic
+    fields = ('id', 'student', 'course')

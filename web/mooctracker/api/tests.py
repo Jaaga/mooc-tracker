@@ -7,7 +7,8 @@ from rest_framework.test import APITestCase
 from students.models import Student
 from courses.models import Course
 from projects.models import Project
-from .serializers import StudentSerializer, CourseSerializer, ProjectSerializer
+from academics.models import Academic
+from .serializers import StudentSerializer, CourseSerializer, ProjectSerializer, AcademicSerializer
 
 # Tests for Student Model
 
@@ -110,3 +111,16 @@ class DeleteProjectTest(APITestCase):
   def test_can_update_project(self):
     response = self.client.delete(reverse('project-detail', args=[self.project.id]))
     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+# Tests for Academics Model
+
+class CreateAcademicTest(APITestCase):
+  def setUp(self):
+    self.student = Student.objects.create(name='ansal')
+    self.course = Course.objects.create(course_title="Intro to Computer Science Build a Search Engine & a Social Network", url="https://www.udacity.com/course/cs101")
+    self.academic = Academic.objects.create(student=self.student, course=self.course)
+    self.data = {'student': 'http://localhost:8000/api/students/1/', 'course': 'http://localhost:8000/api/courses/1/'}
+
+  def test_can_create_academics(self):
+    response = self.client.post(reverse('academic-list'), self.data)
+    self.assertEqual(response.status_code, status.HTTP_201_CREATED)

@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register(r'students', StudentViewSet)
 router.register(r'courses', CourseViewSet)
 router.register(r'projects', ProjectViewSet)
+router.register(r'academics', AcademicViewSet)
 
 urlpatterns = patterns('',
   url(r'^', include(router.urls)),
