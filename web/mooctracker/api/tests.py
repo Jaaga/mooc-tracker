@@ -124,3 +124,42 @@ class CreateAcademicTest(APITestCase):
   def test_can_create_academics(self):
     response = self.client.post(reverse('academic-list'), self.data)
     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+class ReadAcademicTest(APITestCase):
+  def setUp(self):
+    self.student = Student.objects.create(name='ansal')
+    self.course = Course.objects.create(course_title="Intro to Computer Science Build a Search Engine & a Social Network", url="https://www.udacity.com/course/cs101")
+    self.academic = Academic.objects.create(student=self.student, course=self.course)
+
+  def test_can_read_academic_list(self):
+    response = self.client.get(reverse('academic-list'))
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+  def test_can_read_academic_detail(self):
+    response = self.client.get(reverse('academic-detail', args=[self.academic.id]))
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+class UpdateAcademicTest(APITestCase):
+  def setUp(self):
+    self.student = Student.objects.create(name='ansal')
+    self.course = Course.objects.create(course_title="Intro to Computer Science Build a Search Engine & a Social Network", url="https://www.udacity.com/course/cs101")
+    self.academic = Academic.objects.create(student=self.student, course=self.course)
+    self.new_student = Student.objects.create(name='santu')
+    self.updated_academic = Academic.objects.create(student=self.new_student, course=self.course)
+    self.data = AcademicSerializer(self.updated_academic).data
+  
+  def test_can_update_academic(self):
+    response = self.client.put(reverse('academic-detail', args=[self.academic.id]), self.data)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class DeleteAcademicTest(APITestCase):
+  def setUp(self):
+    self.student = Student.objects.create(name='ansal')
+    self.course = Course.objects.create(course_title="Intro to Computer Science Build a Search Engine & a Social Network", url="https://www.udacity.com/course/cs101")
+    self.academic = Academic.objects.create(student=self.student, course=self.course)
+  
+  def test_can_update_academic(self):
+    response = self.client.delete(reverse('academic-detail', args=[self.academic.id]))
+    self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+ 
