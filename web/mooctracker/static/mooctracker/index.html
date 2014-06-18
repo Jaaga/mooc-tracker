@@ -108,6 +108,13 @@
   <script type="text/template" id="studentCoursesTemplate">
     <div class="row">
       <div class="col-md-12">
+        <p class="pull-right">
+          <a href="#/app/student/courses/new" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Course</a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <h3>
           Your Courses <br>
           <small> <span id="studentCourseLength"><%= MoocTracker.StudentCourses.length %></span> registered course<% if(MoocTracker.StudentCourses.length > 1){ %>s<%}%>.</small>
@@ -125,6 +132,44 @@
         <small> <%= courseStart %> to <%= courseEnd %> </small>
       </h3>
     </li>
+  </script>
+
+  <script id="studentCourseForm" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Start new Course</h3>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="alert alert-danger" style="display:none;">
+            <strong>Oh no!</strong> We need all the fields. Please retry.
+          </div>
+        <form role="form">
+          <div class="form-group">
+            <label for="courseName">Course</label>
+            <select class="form-control" id="studentCourseName">
+            <% MoocTracker.Courses.each(function(course){ %>
+              <option value="<%= course.get('id') %>"><%= course.get('title') %></option>
+            <% }); %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="courseStart">Start Date</label>
+            <input type="date" class="form-control" id="courseStart">
+          </div>
+          <div class="form-group">
+            <label for="courseEnd">End Date</label>
+            <input type="date" class="form-control" id="courseEnd">
+          </div>
+          <div class="form-group">
+            <a href="#/app/student/courses" class="btn btn-default">Cancel &amp; take me back</a>
+            <button id="saveNewCourseButton" class="btn btn-success">Add Course</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </script>
 
   <script type="text/template" id="studentProjectsTemplate">

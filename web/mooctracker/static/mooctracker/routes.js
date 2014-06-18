@@ -11,7 +11,8 @@ var MoocTracker = MoocTracker || {};
       // student routes
       'app/student': 'studentDashboard',
       'app/student/courses': 'studentCourses',
-      'app/student/projects': 'studentProjects'
+      'app/student/course/id': 'showStudentCourse',
+      'app/student/projects': 'studentProjects',
 
     },
 
@@ -28,11 +29,21 @@ var MoocTracker = MoocTracker || {};
       view.addAllCoursesViews();
     },
 
+    showStudentCourse: function() {
+      var view = MC.StudentCoursePageView();
+      view.render();
+    },
+
     studentProjects: function() {
       var view = new MC.StudentProjectsView();
       view.render();
       view.addAllProjectsViews();
-    }
+    },
+
+    newStudentProject: function() {
+      var view = new MC.StudentProjectFormView();
+      view.render();
+    },
 
   });
 
