@@ -8,15 +8,31 @@ var MoocTracker = MoocTracker || {};
 
     routes: {
 
-      'app/student': 'studentDashboard'
+      // student routes
+      'app/student': 'studentDashboard',
+      'app/student/courses': 'studentCourses',
+      'app/student/projects': 'studentProjects'
 
     },
 
+    // student route methods
 
     studentDashboard: function() {
-      console.log('Write view for studentDashboard');
-    }
+      var view = new MC.StudentDashboardView();
+      view.render();
+    },
 
+    studentCourses: function() {
+      var view = new MC.StudentCoursesView();
+      view.render();
+      view.addAllCoursesViews();
+    },
+
+    studentProjects: function() {
+      var view = new MC.StudentProjectsView();
+      view.render();
+      view.addAllProjectsViews();
+    }
 
   });
 

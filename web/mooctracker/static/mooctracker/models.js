@@ -37,6 +37,5 @@ var MoocTracker = MoocTracker || {};
   MC.Student = Backbone.Model.extend({
   });
 
-  
 
 })();

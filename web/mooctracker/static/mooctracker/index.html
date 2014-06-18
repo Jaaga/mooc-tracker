@@ -16,11 +16,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">M00C Tracker</a>
+        <a class="navbar-brand" href="/mooctracker">M00C Tracker</a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right" id="appMenus">
           <li>
             <span class="navbar-form navbar-right">
               <a href="#/app/student" class="btn btn-success">Login</a>
@@ -30,6 +30,124 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
+
+  <div class="container-fluid" id="app">
+    
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+      <hr>
+        <p class="pull-right">
+        MOOC Tracker is an <a href="https://github.com/Jaaga/mooc-tracker">opensource</a> app built at <a href="http://jaaga.in/">Jaaga</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- templates -->
+
+  <!-- students -->
+
+  <script type="text/template" id="studentMenus">
+    <li id="dashboardLi">
+      <a href="#/app/student">Dashboard</a>
+    </li>
+    <li id="coursesLi"><a href="#/app/student/courses">Courses</a></li>
+    <li id="projectsLi"><a href="#/app/student/projects">Projects</a></li>
+    <li><a href="/mooctracker">Logout</a></li>
+  </script>
+
+  <script id="studentDashboardTemplate" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="pull-right">
+          Welcome, Student!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Your Courses</h3>
+        <hr>
+        <ul>
+        <% MoocTracker.StudentCourses.each(function(course){ %>
+          <li>
+            <h3>
+              <a href="#/app/student/course/<%= course.get('id')  %>"><%= course.get('courseTitle') %></a> <br>
+              <small> <%= course.get('courseStart') %> to <%= course.get('courseEnd') %> </small>
+            </h3>
+          </li>
+        <% }); %>
+        </ul>
+        <p class="pull-right">
+          <a href="#/app/student/courses">View All Courses</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h3>Your Projects</h3>
+        <hr>
+        <ul>
+        <% MoocTracker.Projects.each(function(project){ %>
+          <li>
+            <h3>
+              <a href="#/app/student/project/<%= project.get('id')  %>"><%= project.get('title') %></a> <br>
+              <small> <%= project.get('description') %> </small>
+            </h3>
+          </li>
+        <% }); %>
+        </ul>
+        <p class="pull-right">
+          <a href="#/app/student/projects">View All Projects</a>
+        </p>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="studentCoursesTemplate">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          Your Courses <br>
+          <small> <span id="studentCourseLength"><%= MoocTracker.StudentCourses.length %></span> registered course<% if(MoocTracker.StudentCourses.length > 1){ %>s<%}%>.</small>
+        </h3>
+        <hr>
+        <ul id="studentCourses">
+        </ul>
+      </div>
+    </div>
+  </script>
+  <script type="text/template" id="studentCourseTemplate">
+    <li>
+      <h3>
+        <a href="#/app/student/course/<%= id  %>"><%= courseTitle %></a> <br>
+        <small> <%= courseStart %> to <%= courseEnd %> </small>
+      </h3>
+    </li>
+  </script>
+
+  <script type="text/template" id="studentProjectsTemplate">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          Your Projects <br>
+          <small> <span id="studentProjectLength"><%= MoocTracker.Projects.length %></span> project<% if(MoocTracker.Projects.length > 1){ %>s<%}%>.</small>
+        </h3>
+        <hr>
+        <ul id="studentProjects">
+        </ul>
+      </div>
+    </div>
+  </script>
+  <script type="text/template" id="studentProjectTemplate">
+    <li>
+      <h3>
+        <a href="#/app/student/project/<%= id  %>"><%= title %></a> <br>
+        <small> <%= description %> </small>
+      </h3>
+    </li>
+  </script>
   
   <!-- js libs -->
   <script src="lib/js/jquery.min.js"></script>
@@ -40,7 +158,8 @@
   <!-- backbone app -->
   <script src="models.js"></script>
   <script src="collections.js"></script>
-  <script src="views.js"></script>
+  <script src="student-views.js"></script>
+  <script src="admin-views.js"></script>
   <script src="routes.js"></script>
   <script src="app.js"></script>
 
