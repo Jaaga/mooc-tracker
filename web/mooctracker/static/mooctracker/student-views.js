@@ -195,7 +195,7 @@ var MoocTracker = MoocTracker || {};
   });
 
   // form view for creating new student course
-  MC.StudentProjectFormView = Backbone.View.extend({
+  MC.StudentCourseFormView = Backbone.View.extend({
 
     tagName: 'div',
     idName: 'app',
@@ -295,7 +295,7 @@ var MoocTracker = MoocTracker || {};
 
     addOneProjectView: function(project) {
       var view = new MC.StudentProjectView({ model: project});
-      this.$el.find('#studentProjects').html(view.render().$el);
+      this.$el.find('#studentProjects').append(view.render().$el);
     },
 
     addAllProjectsViews: function() {
@@ -315,9 +315,154 @@ var MoocTracker = MoocTracker || {};
     },
 
     render: function() {
+      var html = this.template({ project: this.model });
+      this.$el.html(html);
+      return this;
+    }
+
+  });
+
+  // individual student project page with edit and delete options
+  MC.StudentProjectPageView = Backbone.View.extend({
+
+    tagName: 'div',
+    idName: 'app',
+    template: _.template( $('#studentProjectPageTemplate').html() ),
+
+    events: {
+      'click .deleteStudentProjectButton': 'deleteProject',
+      'click .showProjectUpdateButton': 'updateProject'
+    },
+
+    initialize: function() {
+
+      // model events
+      this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'destroy', this.remove);
+
+    },
+
+    render: function() {
       var html = this.template(this.model.toJSON());
       this.$el.html(html);
       return this;
+    },
+
+    updateProject: function(e) {
+
+      var $formDiv = $('#projectUpdateDiv');
+      var $button = $('.showProjectUpdateButton');
+
+      if($formDiv.css('display') === 'none') {
+        $formDiv
+        .show('fast');
+        $button
+        .removeClass('btn-info')
+        .addClass('btn-success')
+        .text('Save');
+        return;
+      }
+
+      // if we reach here it means that user has changed the dates
+      var title = $('#projectTitleUpdate').val();
+      var description = $('#projectDescriptionUpdate').val();
+      var projectSite = $('#projectSiteUrlUpdated').val();
+      var githubUrl = $('#projectGithubUrlUpdate').val();
+
+      if(!title || !description || !projectSite || !githubUrl) {
+        window.alert('Hey there, we need all the fields below!\n\nPlease try again.');
+        return;
+      }
+
+      this.model.set('title', title);
+      this.model.set('description', description);
+      this.model.set('projectSite', projectSite);
+      this.model.set('githubUrl', githubUrl);
+      this.model.save();
+
+      $formDiv
+      .hide('fast');
+      $button
+      .removeClass('btn-success')
+      .addClass('btn-info')
+      .html('<span class="glyphicon glyphicon-pencil"></span> Edit');
+
+    },
+
+    deleteProject: function() {
+      var confirmation = window.confirm('Are you sure?');
+      if(!confirmation) {
+        return;
+      }
+      this.model.destroy();
+      window.location.href='#/app/student/projects';
+    }
+
+  });
+
+  // form view for creating new student course
+  MC.StudentProjectFormView = Backbone.View.extend({
+
+    tagName: 'div',
+    idName: 'app',
+    template: _.template( $('#studentProjectForm').html() ),
+
+    events: {
+      'click #saveNewProjectButton': 'addProject'
+    },
+
+    initialize: function() {
+
+      // caching dom elements
+      this.$appMenus = $('#appMenus');
+
+      // caching templates
+      this.menuTemplate = _.template( $('#studentMenus').html() );
+
+    },
+
+    render: function() {
+
+      // load the menus first
+      this.$appMenus.html( this.menuTemplate() );
+      this.$appMenus.find('li#projectsLi').addClass('active');
+
+      // draw the main body app
+      var html = this.template();
+      this.$el.html(html);
+
+      return this;
+    },
+
+    addProject: function(e) {
+      e.preventDefault();
+      var project = this.buildFormAttributes();
+      if(typeof project === 'undefined') {
+        this.$el.find('.alert').show('fast');
+        return;
+      }
+      MC.Projects.create(project);
+      window.location.href='#/app/student/projects';
+    },
+
+    buildFormAttributes: function() {
+      var title = $('#projectTitle').val();
+      var description = $('#projectDescription').val();
+      var site = $('#projectSiteUrl').val();
+      var github = $('#projectGithubUrl').val();
+      if(!title || !description || !site || !github) {
+        return undefined;
+      }
+
+      var project = {
+        title: title,
+        description: description,
+        projectSite: site,
+        githubUrl: github
+      }
+
+      return project;
+
     }
 
   });

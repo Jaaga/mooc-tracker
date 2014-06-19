@@ -211,6 +211,13 @@
   <script type="text/template" id="studentProjectsTemplate">
     <div class="row">
       <div class="col-md-12">
+        <p class="pull-right">
+          <a href="#/app/student/projects/new" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Project</a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
         <h3>
           Your Projects <br>
           <small> <span id="studentProjectLength"><%= MoocTracker.Projects.length %></span> project<% if(MoocTracker.Projects.length > 1){ %>s<%}%>.</small>
@@ -221,13 +228,93 @@
       </div>
     </div>
   </script>
+
+  <script type="text/template" id="studentProjectPageTemplate">
+    <h3>
+      <a href="#/app/project/course/<%= typeof id === 'undefined' ? cid : id  %>"><%= title %></a> <br>
+      <small> <%= description %> </small>
+    </h3>
+    <p>
+      <a href="<%= projectSite %>">Project Site</a>, <a href="<%= githubUrl %>">Github Repo</a>
+    </p>
+
+    <div style="display:none;" id="projectUpdateDiv">
+      <div class="form-group">
+        <label for="projectTitleUpdate">Project Title</label>
+        <input type="text" class="form-control" id="projectTitleUpdate" value="<%= title %>" placeholder="Enter project title">
+      </div>
+      <div class="form-group">
+        <label for="projectDescriptionUpdate">Project Description</label>
+        <input type="text" class="form-control" id="projectDescriptionUpdate" value="<%= description %>" placeholder="Enter project description">
+      </div>
+      <div class="form-group">
+        <label for="projectSiteUrlUpdated">Project Site Url</label>
+        <input type="text" class="form-control" id="projectSiteUrlUpdated" value="<%= projectSite %>" placeholder="Url for your project if any">
+      </div>
+      <div class="form-group">
+        <label for="projectGithubUrlUpdate">Project Github Url</label>
+        <input type="text" class="form-control" id="projectGithubUrlUpdate" value="<%= githubUrl %>" placeholder="Url for yout Github repo">
+      </div>
+    </div>
+
+    <div>
+      <button class="btn btn-info btn-xs showProjectUpdateButton"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
+      <button class="btn btn-danger btn-xs deleteStudentProjectButton"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    </div>
+
+    <hr>
+    <div class="col-md-12">
+      <h4>Github Commit Logs for <%= title %></h4>
+      <ul id="githubCommitLogs"></ul>
+    </div>
+
+  </script>
+
   <script type="text/template" id="studentProjectTemplate">
     <li>
       <h3>
-        <a href="#/app/student/project/<%= id  %>"><%= title %></a> <br>
-        <small> <%= description %> </small>
+        <a href="#/app/student/project/<%= typeof project.id === 'undefined' ? project.cid : project.id %>"><%= project.get('title') %></a> <br>
+        <small> <%= project.get('description') %> </small>
       </h3>
     </li>
+  </script>
+
+  <script id="studentProjectForm" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Start new Project</h3>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="alert alert-danger" style="display:none;">
+            <strong>Oh no!</strong> We need all the fields. Please retry.
+          </div>
+        <form role="form">
+          <div class="form-group">
+            <label for="projectTitle">Project Title</label>
+            <input type="text" class="form-control" id="projectTitle">
+          </div>
+          <div class="form-group">
+            <label for="projectDescription">Project Description</label>
+            <input type="text" class="form-control" id="projectDescription">
+          </div>
+          <div class="form-group">
+            <label for="projectSiteUrl">Project Site Url</label>
+            <input type="text" class="form-control" id="projectSiteUrl">
+          </div>
+          <div class="form-group">
+            <label for="projectGithubUrl">Project Github Url</label>
+            <input type="text" class="form-control" id="projectGithubUrl">
+          </div>
+          <div class="form-group">
+            <a href="#/app/student/projects" class="btn btn-default">Cancel &amp; take me back</a>
+            <button id="saveNewProjectButton" class="btn btn-success">Add Project</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </script>
   
   <!-- js libs -->
