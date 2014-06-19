@@ -3,6 +3,9 @@ var MoocTracker = MoocTracker || {};
 (function(){
 
   var MC = MoocTracker;
+  var $container = $('#container');
+
+  // add an object to keep track of views
 
   MC.Router = Backbone.Router.extend({
 
@@ -11,8 +14,9 @@ var MoocTracker = MoocTracker || {};
       // student routes
       'app/student': 'studentDashboard',
       'app/student/courses': 'studentCourses',
-      'app/student/course/id': 'showStudentCourse',
+      'app/student/course/:id': 'showStudentCourse',
       'app/student/projects': 'studentProjects',
+      'app/student/courses/new': 'newStudentProject'
 
     },
 
@@ -20,29 +24,30 @@ var MoocTracker = MoocTracker || {};
 
     studentDashboard: function() {
       var view = new MC.StudentDashboardView();
-      view.render();
+      $container.html('').append(view.render().$el);
     },
 
     studentCourses: function() {
       var view = new MC.StudentCoursesView();
-      view.render();
+      $container.html('').append(view.render().$el);
       view.addAllCoursesViews();
     },
 
-    showStudentCourse: function() {
-      var view = MC.StudentCoursePageView();
-      view.render();
+    showStudentCourse: function(id) {
+      var model = MC.StudentCourses.get(id);
+      var view = new MC.StudentCoursePageView({ model: model });
+      $container.html('').append(view.render().$el);
     },
 
     studentProjects: function() {
       var view = new MC.StudentProjectsView();
-      view.render();
+      $container.html('').append(view.render().$el);
       view.addAllProjectsViews();
     },
 
     newStudentProject: function() {
       var view = new MC.StudentProjectFormView();
-      view.render();
+      $container.html('').append(view.render().$el);
     },
 
   });

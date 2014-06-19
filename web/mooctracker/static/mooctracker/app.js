@@ -2,6 +2,12 @@ var MoocTracker = MoocTracker || {};
 
 (function(){
 
+  // extend backbone views to add a close method to remove zombies
+  Backbone.View.prototype.close = function() {
+    this.remove();
+    this.unbind();
+  };
+
   var MC = MoocTracker;
 
   // fetch all the models

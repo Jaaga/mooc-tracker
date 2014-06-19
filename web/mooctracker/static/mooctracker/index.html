@@ -31,7 +31,7 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-  <div class="container-fluid" id="app">
+  <div class="container-fluid" id="container">
     
   </div>
 
@@ -75,7 +75,7 @@
         <% MoocTracker.StudentCourses.each(function(course){ %>
           <li>
             <h3>
-              <a href="#/app/student/course/<%= course.get('id')  %>"><%= course.get('courseTitle') %></a> <br>
+              <a href="#/app/student/course/<%= typeof course.id === 'undefined' ? course.cid : course.id  %>"><%= course.get('courseTitle') %></a> <br>
               <small> <%= course.get('courseStart') %> to <%= course.get('courseEnd') %> </small>
             </h3>
           </li>
@@ -92,7 +92,7 @@
         <% MoocTracker.Projects.each(function(project){ %>
           <li>
             <h3>
-              <a href="#/app/student/project/<%= project.get('id')  %>"><%= project.get('title') %></a> <br>
+              <a href="#/app/student/project/<%= typeof project.id === 'undefined' ? project.cid : project.id  %>"><%= project.get('title') %></a> <br>
               <small> <%= project.get('description') %> </small>
             </h3>
           </li>
@@ -125,13 +125,49 @@
       </div>
     </div>
   </script>
+
   <script type="text/template" id="studentCourseTemplate">
-    <li>
-      <h3>
-        <a href="#/app/student/course/<%= id  %>"><%= courseTitle %></a> <br>
-        <small> <%= courseStart %> to <%= courseEnd %> </small>
-      </h3>
-    </li>
+    <h3>
+      <a href="#/app/student/course/<%= typeof course.id === 'undefined' ? course.cid : course.id  %>"><%= course.get('courseTitle') %></a> <br>
+      <small> <%= course.get('courseStart') %> to <%= course.get('courseEnd') %> </small>
+    </h3>
+  </script>
+
+  <script type="text/template" id="studentCoursePageTemplate">
+    <h3>
+      <a href="#/app/student/course/<%= typeof id === 'undefined' ? cid : id  %>"><%= courseTitle %></a> <br>
+      <small> <%= courseStart %> to <%= courseEnd %> </small>
+    </h3>
+
+    <div style="display:none;" id="courseTimeUpdateDiv">
+      <div class="form-group">
+        <label for="courseStartUpdate">Start Date</label>
+        <input type="date" class="form-control" id="courseStartUpdate" value="<%= courseStart %>">
+      </div>
+      <div class="form-group">
+        <label for="courseEndUpdate">End Date</label>
+        <input type="date" class="form-control" id="courseEndUpdate" value="<%= courseEnd %>">
+      </div>
+    </div>
+
+    <div>
+      <button class="btn btn-info btn-xs showStudentCourseTimeUpdate"> <span class="glyphicon glyphicon-pencil"></span> Update Time</button>
+      <button class="btn btn-danger btn-xs deleteStudentCourseButton"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    </div>
+
+    <hr>
+    <div class="col-md-12">
+      <h4>Course Updates</h4>
+      <input type="text" class="form-control" id="newProjectUpdate" placeholder="Type a new update and hit Enter!">
+      <ul>
+        <% _.each(updates, function(update){ %>
+        <li>
+          <%= update %>
+        </li>
+        <%  }); %>
+      </ul>
+    </div>
+
   </script>
 
   <script id="studentCourseForm" type="text/template">

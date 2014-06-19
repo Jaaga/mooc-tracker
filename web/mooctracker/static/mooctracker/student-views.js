@@ -8,7 +8,8 @@ var MoocTracker = MoocTracker || {};
   // student dashboard view
   MC.StudentDashboardView = Backbone.View.extend({
 
-    el: '#app',
+    tagName: 'div',
+    idName: 'app',
     template: _.template( $('#studentDashboardTemplate').html() ),
 
     initialize: function() {
@@ -40,7 +41,8 @@ var MoocTracker = MoocTracker || {};
   // student courses view
   MC.StudentCoursesView = Backbone.View.extend({
 
-    el: '#app',
+    tagName: 'div',
+    idName: 'app',
     template: _.template( $('#studentCoursesTemplate').html() ),
 
     initialize: function() {
@@ -68,7 +70,7 @@ var MoocTracker = MoocTracker || {};
 
     addOneCourseView: function(course) {
       var view = new MC.StudentCourseView({ model: course});
-      this.$el.find('#studentCourses').append(view.render().$el);
+      $('#studentCourses').append(view.render().$el);
     },
 
     addAllCoursesViews: function() {
@@ -88,7 +90,9 @@ var MoocTracker = MoocTracker || {};
     },
 
     render: function() {
-      var html = this.template(this.model.toJSON());
+      var html = this.template({
+        course: this.model
+      });
       this.$el.html(html);
       return this;
     }
@@ -96,19 +100,96 @@ var MoocTracker = MoocTracker || {};
   });
 
   // individual student course page with edit and delete options
-  MC.StudentCourseView = Backbone.View.extend({
+  MC.StudentCoursePageView = Backbone.View.extend({
 
-    el: '#',
-    template: _.template( $('#studentCourseTemplate').html() ),
+    tagName: 'div',
+    idName: 'app',
+    template: _.template( $('#studentCoursePageTemplate').html() ),
+
+    events: {
+      'click .deleteStudentCourseButton': 'deleteStudentCourse',
+      'click .showStudentCourseTimeUpdate': 'updateCourseTime',
+      'keyup #newProjectUpdate': 'addCourseUpdate'
+    },
 
     initialize: function() {
+
+      // model events
+      this.listenTo(this.model, 'change', this.render);
+      this.listenTo(this.model, 'destroy', this.remove);
 
     },
 
     render: function() {
       var html = this.template(this.model.toJSON());
       this.$el.html(html);
+      this.$el.find('#newProjectUpdate').focus();
       return this;
+    },
+
+    updateCourseTime: function(e) {
+
+      var $formDiv = $('#courseTimeUpdateDiv');
+      var $button = $('.showStudentCourseTimeUpdate');
+
+      if($formDiv.css('display') === 'none') {
+        $formDiv
+        .show('fast');
+        $button
+        .removeClass('btn-info')
+        .addClass('btn-success')
+        .text('Save');
+        return;
+      }
+
+      // if we reach here it means that user has changed the dates
+      var startDate = $('#courseStartUpdate').val();
+      var endDate = $('#courseEndUpdate').val();
+
+      if(!startDate || !endDate) {
+        window.alert('Hey there, we need both start and end dates!\n\nPlease try again.');
+        return;
+      }
+
+      this.model.set('courseStart', startDate);
+      this.model.set('courseEnd', endDate);
+      this.model.save();
+
+      $formDiv
+      .hide('fast');
+      $button
+      .removeClass('btn-success')
+      .addClass('btn-info')
+      .html('<span class="glyphicon glyphicon-pencil"></span> Update Time');
+
+    },
+
+    addCourseUpdate: function(e) {
+      // only if enter key is pressed
+      if(e.which !== 13) {
+        return;
+      }
+      var $newProjectUpdate = $('#newProjectUpdate');
+      var update = $newProjectUpdate.val().trim();
+      if(!update) {
+        return;
+      }
+
+      var updates = this.model.get('updates');
+      updates.push(update);
+
+      this.model.set('updates', updates);
+      this.model.save();
+
+    },
+
+    deleteStudentCourse: function() {
+      var confirmation = window.confirm('This will remove all your updates too. Are you sure?');
+      if(!confirmation) {
+        return;
+      }
+      this.model.destroy();
+      window.location.href='#/app/student/courses';
     }
 
   });
@@ -116,7 +197,8 @@ var MoocTracker = MoocTracker || {};
   // form view for creating new student course
   MC.StudentProjectFormView = Backbone.View.extend({
 
-    el: '#app',
+    tagName: 'div',
+    idName: 'app',
     template: _.template( $('#studentCourseForm').html() ),
 
     events: {
@@ -154,6 +236,7 @@ var MoocTracker = MoocTracker || {};
         return;
       }
       MC.StudentCourses.create(course);
+      window.location.href='#/app/student/courses';
     },
 
     buildFormAttributes: function() {
@@ -162,7 +245,6 @@ var MoocTracker = MoocTracker || {};
       var courseTitle = $('#studentCourseName option:selected').text();
       var courseStart = this.$el.find('#courseStart').val();
       var courseEnd = this.$el.find('#courseEnd').val();
-      console.log(course, courseTitle, courseStart, courseEnd)
       if ( course === '0' ||
             !courseTitle ||
             !courseStart ||
@@ -184,7 +266,8 @@ var MoocTracker = MoocTracker || {};
   // student projects view
   MC.StudentProjectsView = Backbone.View.extend({
 
-    el: '#app',
+    tagName: 'div',
+    idName: 'app',
     template: _.template( $('#studentProjectsTemplate').html() ),
 
     initialize: function() {
