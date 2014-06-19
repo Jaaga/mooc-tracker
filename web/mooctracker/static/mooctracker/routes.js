@@ -24,7 +24,12 @@ var MoocTracker = MoocTracker || {};
       // projects
       'app/student/projects': 'studentProjects',
       'app/student/project/:id': 'showStudentProject',
-      'app/student/projects/new': 'newStudentProject',      
+      'app/student/projects/new': 'newStudentProject',   
+
+      // admin routes
+
+      // dashboard
+      'app/admin': 'adminDashboard'   
 
     },
 
@@ -69,6 +74,13 @@ var MoocTracker = MoocTracker || {};
       $container.html('').append(view.render().$el);
       view.showGithubInfo();
     },
+
+    // admin route methods
+
+    adminDashboard: function() {
+      var view = new MC.AdminDashboardView();
+      $container.html('').append(view.render().$el);
+    }
 
   });
 

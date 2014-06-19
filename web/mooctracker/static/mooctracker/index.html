@@ -48,6 +48,61 @@
 
   <!-- templates -->
 
+  <!-- admins -->
+
+  <script type="text/template" id="adminMenus">
+    <li id="dashboardLi">
+      <a href="#/app/admin">Dashboard</a>
+    </li>
+    <li id="coursesLi"><a href="#/app/admin/courses">Courses</a></li>
+    <li id="projectsLi"><a href="#/app/admin/students">Students</a></li>
+    <li><a href="/mooctracker">Logout</a></li>
+  </script>
+
+  <script id="adminDashboardTemplate" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="pull-right">
+          Welcome, Admin!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Available Courses</h3>
+        <hr>
+        <ul>
+        <% MoocTracker.Courses.each(function(course){ %>
+          <li>
+            <h3>
+              <a href="#/app/admin/course/<%= typeof course.id === 'undefined' ? course.cid : course.id  %>"><%= course.get('title') %></a>
+            </h3>
+          </li>
+        <% }); %>
+        </ul>
+        <p class="pull-right">
+          <a href="#/app/admin/courses">View All Courses</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h3>Your Projects</h3>
+        <hr>
+        <ul>
+        <% MoocTracker.Students.each(function(student){ %>
+          <li>
+            <h3>
+              <a href="#/app/admin/student/<%= typeof student.id === 'undefined' ? student.cid : student.id  %>"><%= student.get('name') %></a> <br>
+            </h3>
+          </li>
+        <% }); %>
+        </ul>
+        <p class="pull-right">
+          <a href="#/app/admin/students">View All Students</a>
+        </p>
+      </div>
+    </div>
+  </script>
+
   <!-- students -->
 
   <script type="text/template" id="studentMenus">
