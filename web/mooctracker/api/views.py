@@ -9,9 +9,9 @@ from courses.models import Course
 from projects.models import Project
 from academics.models import Academic, AcademicUpdate
 
-class StudentViewSet(viewsets.ReadOnlyModelViewSet):
+class StudentViewSet(viewsets.ModelViewSet):
   """
-  This viewset automatically provides 'list' and 'detail' actions.
+  This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' actions. 
   """
   queryset = Student.objects.all()
   serializer_class = StudentSerializer

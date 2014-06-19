@@ -12,6 +12,15 @@ from .serializers import StudentSerializer, CourseSerializer, ProjectSerializer,
 
 # Tests for Student Model
 
+class CreateStudentTest(APITestCase):
+  def setUp(self):
+    self.student = Student.objects.create(name='ansal')
+    self.data = {'name': 'ansal'}
+
+  def test_can_create_student(self):
+    response = self.client.post(reverse('student-list'), self.data)
+    self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
 class ReadStudentTest(APITestCase):
   def setUp(self):
     self.student = Student.objects.create(name='ansal')
@@ -23,6 +32,24 @@ class ReadStudentTest(APITestCase):
   def test_can_read_student_detail(self):
     response = self.client.get(reverse('student-detail', args=[self.student.id]))
     self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+class UpdateStudentTest(APITestCase):
+  def setUp(self):
+    self.student = Student.objects.create(name='ansal')
+    self.updated_student = Student.objects.create(name='rajeef')
+    self.data = StudentSerializer(self.updated_student).data
+  
+  def test_can_update_course(self):
+    response = self.client.put(reverse('student-detail', args=[self.student.id]), self.data)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+class DeleteStudentTest(APITestCase):
+  def setUp(self):
+    self.student = Student.objects.create(name='ansal')
+  
+  def test_can_update_student(self):
+    response = self.client.delete(reverse('student-detail', args=[self.student.id]))
+    self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 # Tests for Course Model
 
