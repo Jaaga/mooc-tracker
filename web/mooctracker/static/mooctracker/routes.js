@@ -67,6 +67,7 @@ var MoocTracker = MoocTracker || {};
       var model = MC.Projects.get(id);
       var view = new MC.StudentProjectPageView({ model: model });
       $container.html('').append(view.render().$el);
+      view.showGithubInfo();
     },
 
   });

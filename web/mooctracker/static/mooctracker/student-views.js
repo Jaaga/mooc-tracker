@@ -389,6 +389,23 @@ var MoocTracker = MoocTracker || {};
 
     },
 
+    showGithubInfo: function() {
+
+      var $githubCommitLogs = $('#githubCommitLogs');
+      var urlArr = this.model.get('githubUrl');
+      urlArr = urlArr.split('/');
+      var username = urlArr[urlArr.length - 2];
+      var repo = urlArr[urlArr.length - 1];
+      var apiUrl = 'https://api.github.com/repos/' + username + '/' + repo + '/commits';
+      $.getJSON(apiUrl, function(data){
+        $githubCommitLogs.html('');
+        _.each(data, function(d){
+          $githubCommitLogs.append('<li>' + d.commit.message + '</li>');
+        });
+      });
+
+    },
+
     deleteProject: function() {
       var confirmation = window.confirm('Are you sure?');
       if(!confirmation) {
