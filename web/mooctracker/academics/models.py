@@ -9,4 +9,9 @@ class Academic(models.Model):
   start_date = models.DateField(default=None, blank=True, null=True)
   end_date = models.DateField(default=None, blank=True, null = True)
   status = models.CharField(max_length=100, default='Interested') # Interested, Doing, Completed
+
+class AcademicUpdate(models.Model):
+  academic_instance = models.ForeignKey(Academic)
+  update = models.TextField()
+  update_time = models.DateTimeField(auto_now_add=True)
   
