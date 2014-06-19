@@ -14,8 +14,8 @@ from .serializers import StudentSerializer, CourseSerializer, ProjectSerializer,
 
 class CreateStudentTest(APITestCase):
   def setUp(self):
-    self.student = Student.objects.create(name='ansal')
-    self.data = {'name': 'ansal'}
+    self.student = Student.objects.create(name='ansal', email='ansal@bssatech.com')
+    self.data = {'name': 'ansal', 'email': 'ansal@bssatech.com' }
 
   def test_can_create_student(self):
     response = self.client.post(reverse('student-list'), self.data)
@@ -23,7 +23,7 @@ class CreateStudentTest(APITestCase):
 
 class ReadStudentTest(APITestCase):
   def setUp(self):
-    self.student = Student.objects.create(name='ansal')
+    self.student = Student.objects.create(name='ansal', email='ansal@bssatech.com')
 
   def test_can_read_student_list(self):
     response = self.client.get(reverse('student-list'))
@@ -35,8 +35,8 @@ class ReadStudentTest(APITestCase):
 
 class UpdateStudentTest(APITestCase):
   def setUp(self):
-    self.student = Student.objects.create(name='ansal')
-    self.updated_student = Student.objects.create(name='rajeef')
+    self.student = Student.objects.create(name='ansal', email='ansal@bssatech.com')
+    self.updated_student = Student.objects.create(name='rajeef', email='rajeefmk@gmail.com')
     self.data = StudentSerializer(self.updated_student).data
   
   def test_can_update_course(self):
@@ -45,7 +45,7 @@ class UpdateStudentTest(APITestCase):
 
 class DeleteStudentTest(APITestCase):
   def setUp(self):
-    self.student = Student.objects.create(name='ansal')
+    self.student = Student.objects.create(name='ansal', email='ansal@bssatech.com')
   
   def test_can_update_student(self):
     response = self.client.delete(reverse('student-detail', args=[self.student.id]))
