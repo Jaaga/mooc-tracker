@@ -12,11 +12,19 @@ var MoocTracker = MoocTracker || {};
     routes: {
 
       // student routes
+
+      // dashboard
       'app/student': 'studentDashboard',
+
+      // course
       'app/student/courses': 'studentCourses',
       'app/student/course/:id': 'showStudentCourse',
+      'app/student/courses/new': 'newStudentCourse',
+
+      // projects
       'app/student/projects': 'studentProjects',
-      'app/student/courses/new': 'newStudentProject'
+      'app/student/project/:id': 'showStudentProject',
+      'app/student/projects/new': 'newStudentProject',      
 
     },
 
@@ -39,6 +47,11 @@ var MoocTracker = MoocTracker || {};
       $container.html('').append(view.render().$el);
     },
 
+    newStudentCourse: function() {
+      var view = new MC.StudentCourseFormView();
+      $container.html('').append(view.render().$el);
+    },
+
     studentProjects: function() {
       var view = new MC.StudentProjectsView();
       $container.html('').append(view.render().$el);
@@ -47,6 +60,12 @@ var MoocTracker = MoocTracker || {};
 
     newStudentProject: function() {
       var view = new MC.StudentProjectFormView();
+      $container.html('').append(view.render().$el);
+    },
+
+    showStudentProject: function(id) {
+      var model = MC.Projects.get(id);
+      var view = new MC.StudentProjectPageView({ model: model });
       $container.html('').append(view.render().$el);
     },
 
