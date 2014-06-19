@@ -7,6 +7,7 @@ router.register(r'students', StudentViewSet)
 router.register(r'courses', CourseViewSet)
 router.register(r'projects', ProjectViewSet)
 router.register(r'academics', AcademicViewSet)
+router.register(r'updates', UpdateViewSet)
 
 urlpatterns = patterns('',
   url(r'^', include(router.urls)),
