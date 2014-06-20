@@ -29,7 +29,12 @@ var MoocTracker = MoocTracker || {};
       // admin routes
 
       // dashboard
-      'app/admin': 'adminDashboard'   
+      'app/admin': 'adminDashboard',
+
+      // courses
+      'app/admin/courses': 'adminCourses',
+      'app/admin/courses/new': 'newAdminCourse',
+      'app/admin/course/:id': 'showAdminCourse',
 
     },
 
@@ -79,6 +84,23 @@ var MoocTracker = MoocTracker || {};
 
     adminDashboard: function() {
       var view = new MC.AdminDashboardView();
+      $container.html('').append(view.render().$el);
+    },
+
+    adminCourses: function() {
+      var view = new MC.AdminCoursesView();
+      $container.html('').append(view.render().$el);
+      view.addAllCoursesViews();
+    },
+
+    newAdminCourse: function() {
+      var view = new MC.AdminCourseFormView();
+      $container.html('').append(view.render().$el);
+    },
+
+    showAdminCourse: function(id) {
+      var model = MC.Courses.get(id);
+      var view = new MC.AdminCoursePageView({ model: model });
       $container.html('').append(view.render().$el);
     }
 

@@ -10,7 +10,7 @@ var MoocTracker = MoocTracker || {};
   // most probably lives in a select bar for students
   MC.Course = Backbone.Model.extend({
     defaults: {
-      courseTitle: 'Unknown Course'
+      title: 'Unknown Course'
     }
   });
 
