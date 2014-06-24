@@ -24,7 +24,6 @@ public class ServiceHandler {
 	public ServiceHandler() {
 
 	}
-
 	/*
 	 * Making service call
 	 * @url - url to make request
@@ -50,26 +49,27 @@ public class ServiceHandler {
 			
 			// Checking http request method type
 			if (method == POST) {
-				HttpPost httpPost = new HttpPost(url);
 				// adding post params
-				if (params != null) {
+				/*if (params != null) {
 					httpPost.setEntity(new UrlEncodedFormEntity(params));
-				}
-
+				}*/
+				HttpPost httpPost = new HttpPost(url);
 				httpResponse = httpClient.execute(httpPost);
 
-			} else if (method == GET) {
+			} 
+			else if (method == GET) {
 				// appending params to url
-				if (params != null) {
+				/*if (params != null) {
 					String paramString = URLEncodedUtils
 							.format(params, "utf-8");
 					url += "?" + paramString;
-				}
+				}*/
+				
 				HttpGet httpGet = new HttpGet(url);
-
 				httpResponse = httpClient.execute(httpGet);
 
 			}
+			
 			httpEntity = httpResponse.getEntity();
 			response = EntityUtils.toString(httpEntity);
 

@@ -32,11 +32,13 @@ public class ListofStudents extends ListActivity {
 
 	// URL to get contacts JSON
 	
-	private static String url = "http://mooc-tracker.jaaga.us/api/students";
+	private static String url = "http://demo8703284.mockable.io/students";
 
 	// JSON Node names
 	private static final String TAG_ID = "id";
 	private static final String TAG_NAME = "name";
+	private static final String TAG_PROJECT = "Project";
+	private static final String TAG_COURSE = "Course";
 	
 	// contacts JSONArray
 	JSONArray contacts = null;
@@ -46,6 +48,7 @@ public class ListofStudents extends ListActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -124,13 +127,15 @@ public class ListofStudents extends ListActivity {
 					
 					JSONArray jsonarray = new JSONArray(jsonStr);
 
-					// looping through All tudents
+					// looping through All students
 					for (int i = 0; i < jsonarray.length(); i++) {
 						
 						JSONObject c = jsonarray.getJSONObject(i);
 						
 						String id = c.getString(TAG_ID);
 						String name = c.getString(TAG_NAME);
+						String Project = c.getString(TAG_PROJECT);
+						String Course = c.getString(TAG_COURSE);
 
 						// tmp hashmap for single student
 						HashMap<String, String> student = new HashMap<String, String>();
@@ -138,6 +143,8 @@ public class ListofStudents extends ListActivity {
 						// adding each child node to HashMap key => value
 						student.put(TAG_ID, id);
 						student.put(TAG_NAME, name);
+						student.put(TAG_PROJECT, Project);
+						student.put(TAG_COURSE, Course);
 
 						// adding student to student list
 						studentList.add(student);
@@ -163,8 +170,7 @@ public class ListofStudents extends ListActivity {
 			 * */
 			ListAdapter adapter = new SimpleAdapter(
 					ListofStudents.this, studentList,
-					R.layout.list_item, new String[] { TAG_NAME}, new int[] { R.id.name});
-			
+					R.layout.list_item, new String[] {TAG_NAME}, new int[] {R.id.name});
 			
 			setListAdapter(adapter);
 			
