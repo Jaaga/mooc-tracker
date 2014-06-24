@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-MooctrackerRails::Application.config.secret_key_base = '27f4ffd4c323b871ff7b4f6ff3df6b0fabb501bd43da74bc57feba77061903f8169a99f884b069251dd60115e0aebe1d1931b7854ef076da3a83edd48c60a72e'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+MooctrackerRails::Application.config.secret_key_base = secure_token
