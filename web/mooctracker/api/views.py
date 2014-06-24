@@ -2,77 +2,44 @@ from django.http import HttpResponse
 from django.core.context_processors import csrf
 import json
 
+from rest_framework import viewsets, permissions, renderers
+from .serializers import StudentSerializer, CourseSerializer, ProjectSerializer, AcademicSerializer, UpdateSerializer
 from students.models import Student
+from courses.models import Course
+from projects.models import Project
+from academics.models import Academic, AcademicUpdate
 
-STATUS_OK = {
-  'success' : 'API is running'
-}
+class StudentViewSet(viewsets.ModelViewSet):
+  """
+  This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' actions. 
+  """
+  queryset = Student.objects.all()
+  serializer_class = StudentSerializer
 
-# status view
-def status(request):  
+class CourseViewSet(viewsets.ModelViewSet):
+  """
+  This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' actions. 
+  """
+  queryset = Course.objects.all()
+  serializer_class = CourseSerializer
 
-  return HttpResponse(
-    json.dumps(STATUS_OK),
-    content_type = 'application/json'
-  )
+class ProjectViewSet(viewsets.ModelViewSet):
+  """
+  This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' actions. 
+  """
+  queryset = Project.objects.all()
+  serializer_class = ProjectSerializer
 
-# students api implementing GET, POST, PUT & DELETE for Student model
-def students(request, pk=None):
-  
-  # GET Method
-  
-  if request.method == 'GET':
-    response = []
-    students = Student.objects.all()
-    for student in students:
-      obj = {}
-      obj.update({ 'id': student.id })
-      obj.update({ 'name': student.name })
-      response.append(obj)
+class AcademicViewSet(viewsets.ModelViewSet):
+  """
+  This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' actions. 
+  """
+  queryset = Academic.objects.all()
+  serializer_class = AcademicSerializer
 
-    return HttpResponse(
-    json.dumps(response),
-    content_type = 'application/json')
-
-  # POST Method  
-
-  elif request.method == 'POST':
-    requestJson = json.loads(request.body)
-    studentName = requestJson['name']
-    newStudent = Student(name = studentName)
-    newStudent.save()
-    addedStudent = {'id' : newStudent.id, 'name' : newStudent.name}
-
-    
-    return HttpResponse(
-      json.dumps(addedStudent),
-      content_type = 'application/json')
- 
-  # UPDATE Method
-
-  elif request.method == 'PUT':
-    requestJson = json.loads(request.body)
-    studentId = requestJson['id']
-    studentName = requestJson['name']
-    student = Student.objects.get(id = studentId)
-    student.name = studentName
-    student.save()
-    addedStudent = {'id' : updateStudent.id, 'name' : updateStudent.name}
-
-    return HttpResponse(
-      json.dumps(addedStudent),
-      content_type = 'application/json'
-    )
-
-  
-  # DELETE Method
-  
-  elif request.method == 'DELETE':
-    Student.objects.get(id = pk).delete()
-    message={ 'success' : 'True'}
-
-    return HttpResponse(
-      json.dumps(message),
-      content_type = 'application/json')
-
-    
+class UpdateViewSet(viewsets.ModelViewSet):
+  """
+  This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' actions. 
+  """
+  queryset = AcademicUpdate.objects.all()
+  serializer_class = UpdateSerializer
