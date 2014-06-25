@@ -22,7 +22,18 @@
           <%= f.label :description %>
           <%= f.text_field :description %>
 
-          <%= f.submit "Create my account", class: "btn btn-lg btn-primary" %>
+          <%= f.submit "Create my Project", class: "btn btn-lg btn-primary" %>
+        <% end %>
+
+        <%= form_for(@course) do |f| %>
+
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+
+          <%= f.label :url %>
+          <%= f.text_field :url %>
+
+          <%= f.submit "Create my Course", class: "btn btn-lg btn-primary" %>
         <% end %>
 
 
