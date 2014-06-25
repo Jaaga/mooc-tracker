@@ -8,6 +8,8 @@ MooctrackerRails::Application.routes.draw do
 
   resources :sessions, only: [:create, :destroy]
   resource :home, only: [:show]
+  resources :courses
+  resources :projects
 
   root to: "home#show"
   # The priority is based upon order of creation: first created -> highest priority.
