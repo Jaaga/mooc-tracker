@@ -13,6 +13,20 @@
         <%= current_user.email %>
         <%= image_tag current_user.image %>
         <h4>session id-<%= session[:user_id] %> </h4>
+
+        <%= form_for(@project) do |f| %>
+
+          <%= f.label :name %>
+          <%= f.text_field :name %>
+
+          <%= f.label :description %>
+          <%= f.text_field :description %>
+
+          <%= f.submit "Create my account", class: "btn btn-lg btn-primary" %>
+        <% end %>
+
+
+
         <%= link_to "Sign out", signout_path, id: "sign_out" %>
       <% else %>
         <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>

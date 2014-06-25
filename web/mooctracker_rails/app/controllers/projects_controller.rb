@@ -2,6 +2,12 @@ class ProjectsController < ApplicationController
   before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update, :destroy]
 
+
+  def index
+  	@projects= Project.all
+  	render json: @projects
+  end
+
   def create
   	@project = current_user.projects.build(project_params)
     if @project.save
