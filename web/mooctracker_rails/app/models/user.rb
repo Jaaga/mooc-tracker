@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_many :projects
-  has_many :courses
+  has_many :studentcourses
   
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
