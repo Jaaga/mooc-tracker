@@ -27,11 +27,11 @@
 
         <%= form_for(@course) do |f| %>
 
-          <%= f.label :title %>
-          <%= f.text_field :title %>
+          <%= f.label :courseStart %>
+          <%= f.text_field :courseStart %>
 
-          <%= f.label :url %>
-          <%= f.text_field :url %>
+          <%= f.label :courseEnd %>
+          <%= f.text_field :courseEnd %>
 
           <%= f.submit "Create my Course", class: "btn btn-lg btn-primary" %>
         <% end %>

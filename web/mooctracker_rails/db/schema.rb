@@ -11,29 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625084331) do
+ActiveRecord::Schema.define(version: 20140626073914) do
 
   create_table "courses", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "url"
-    t.date     "start"
-    t.date     "end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "createdAt"
+    t.datetime "updatedAt"
   end
 
   create_table "projects", force: true do |t|
     t.integer  "user_id"
-    t.string   "name"
+    t.string   "title"
     t.text     "description"
-    t.string   "source_url"
-    t.string   "project_site_url"
-    t.string   "repo_url"
+    t.string   "tutorialUrl"
+    t.string   "projectSite"
+    t.string   "githubUrl"
     t.date     "start"
     t.date     "end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "createdAt"
+    t.datetime "updatedAt"
   end
 
   create_table "users", force: true do |t|
@@ -46,6 +47,8 @@ ActiveRecord::Schema.define(version: 20140625084331) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.binary   "image"
+    t.datetime "createdAt"
+    t.datetime "updatedAt"
   end
 
 end
