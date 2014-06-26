@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mooc Tracker By Jaaga Study</title>
+  <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/mooctracker">M00C Tracker</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" id="appMenus">
+          <li>
+            <span class="navbar-form navbar-right">
+              <a href="#/app/student" class="btn btn-success">Login</a>
+            </span>
+          </li>
+          <li>
+            <span class="navbar-form navbar-right">
+              <a href="#/app/admin" class="btn btn-success">Admin</a>
+            </span>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container-fluid" id="container">
+    
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+      <hr>
+        <p class="pull-right">
+        MOOC Tracker is an <a href="https://github.com/Jaaga/mooc-tracker">opensource</a> app built at <a href="http://jaaga.in/">Jaaga</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- templates -->
+
+  <!-- admins -->
+
+  <script type="text/template" id="adminMenus">
+    <li id="dashboardLi">
+      <a href="#/app/admin">Dashboard</a>
+    </li>
+    <li id="coursesLi"><a href="#/app/admin/courses">Courses</a></li>
+    <li id="studentsLi"><a href="#/app/admin/students">Students</a></li>
+    <li><a href="/mooctracker">Logout</a></li>
+  </script>
+
+  <script id="adminDashboardTemplate" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="pull-right">
+          Welcome, Admin!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Courses</h3>
+        <hr>
+        <ul>
+        <% MoocTracker.Courses.each(function(course){ %>
+          <li>
+            <h3>
+              <a href="#/app/admin/course/<%= typeof course.id === 'undefined' ? course.cid : course.id  %>"><%= course.get('title') %></a>
+            </h3>
+          </li>
+        <% }); %>
+        </ul>
+        <p class="pull-right">
+          <a href="#/app/admin/courses">Manage Courses</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h3>Students</h3>
+        <hr>
+        <ul>
+        <% MoocTracker.Students.each(function(student){ %>
+          <li>
+            <h3>
+              <a href="#/app/admin/student/<%= typeof student.id === 'undefined' ? student.cid : student.id  %>"><%= student.get('name') %></a> <br>
+            </h3>
+          </li>
+        <% }); %>
+        </ul>
+        <p class="pull-right">
+          <a href="#/app/admin/students">Manage Students</a>
+        </p>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="adminCoursesTemplate">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="pull-right">
+          <a href="#/app/admin/courses/new" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Course</a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          Available Courses <br>
+          <small> <span id="studentCourseLength"><%= MoocTracker.Courses.length %></span> course<% if(MoocTracker.Courses.length > 1){ %>s<%}%>.</small>
+        </h3>
+        <hr>
+        <ul id="adminCourses">
+        </ul>
+      </div>
+    </div>
+  </script>
+
+  <script id="adminCourseForm" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Add new Course</h3>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="alert alert-danger" style="display:none;">
+            <strong>Oh no!</strong> We need all the fields. Please retry.
+          </div>
+        <form role="form">
+          <div class="form-group">
+            <label for="adminCourseTitle">Course/Book Title</label>
+            <input type="text" class="form-control" id="adminCourseTitle">
+          </div>
+          <div class="form-group">
+            <a href="#/app/admin/courses" class="btn btn-default">Cancel &amp; take me back</a>
+            <button id="adminSaveNewCourseButton" class="btn btn-success">Add Course</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="adminCourseTemplate">
+    <h3>
+      <a href="#/app/admin/course/<%= typeof course.id === 'undefined' ? course.cid : course.id  %>"><%= course.get('title') %></a> <br>
+      <small> 3 students </small>
+    </h3>
+  </script>
+
+  <script type="text/template" id="adminCoursePageTemplate">
+    <h3>
+      <a href="#/app/admin/course/<%= typeof id === 'undefined' ? cid : id  %>"><%= title %></a> <br>
+      <small> 3 students </small>
+    </h3>
+
+    <div style="display:none;" id="adminCourseUpdateDiv">
+      <div class="form-group">
+        <label for="adminCourseUpdate">Course Title</label>
+        <input type="text" class="form-control" id="adminCourseUpdate" value="<%= title %>">
+      </div>
+    </div>
+
+    <div>
+      <button class="btn btn-info btn-xs showAdminCourseUpdate"> <span class="glyphicon glyphicon-pencil"></span> Update Title</button>
+      <button class="btn btn-danger btn-xs deleteAdminCourseButton"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    </div>
+
+    <hr>
+
+    <h5>3 students are taking this Course - </h5>
+    <ul>
+      <li>Vaibhav Mule</li>
+      <li>Vaibhav Mule</li>
+      <li>Vaibhav Mule</li>
+    </ul>
+
+  </script>
+
+  <script type="text/template" id="adminStudentsTemplate">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="pull-right">
+          <a href="#/app/admin/students/new" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Student</a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          List of Students <br>
+          <small> <span id="studentsLength"><%= MoocTracker.Students.length %></span> student<% if(MoocTracker.Students.length > 1){ %>s<%}%>.</small>
+        </h3>
+        <hr>
+        <ul id="adminStudents">
+        </ul>
+      </div>
+    </div>
+  </script>
+    
+  <script type="text/template" id="adminStudentTemplate">
+    <h3>
+      <a href="#/app/admin/student/<%= typeof student.id === 'undefined' ? student.cid : student.id  %>"><%= student.get('name') %></a> <br>
+    </h3>
+  </script>
+
+  <script type="text/template" id="adminStudentPageTemplate">
+    <h3>
+      <a href="#/app/admin/student/<%= typeof id === 'undefined' ? cid : id  %>"><%= name %></a>
+    </h3>
+
+    <div>
+      <button class="btn btn-danger btn-xs deleteAdminStudentButton"><span class="glyphicon glyphicon-trash"></span> Remove Student</button>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Courses</h3>
+        <hr>
+        <ul id="studentCourses">
+          Fetching courses... Please wait.
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h3>Projects</h3>
+        <hr>
+        <ul id="studentProjects">
+          Fetching projects... Please wait.
+        </ul>
+      </div>
+    </div>
+
+  </script>
+
+  <script id="studentCourseInfoForAdmin" type="text/template">
+    <% _.each(courses, function(course){ %>
+      <li>
+        <h4><%= course.courseTitle %> <br>
+          <small> <%= course.courseStart %> to <%= course.courseEnd %> </small>
+        </h4>
+        <a href="#" class="showUpdateLink">Show Updates</a>
+        <ul class="courseUpdatesLi" style="display:none">
+          <% _.each(course.updates, function(update){ %>
+            <li> <%= update %> </li>
+          <% }); %>
+        </ul>
+      </li>
+    <% }); %>
+  </script>
+
+  <script id="studentProjectInfoForAdmin" type="text/template">
+    <% _.each(projects, function(project){ %>
+      <li>
+        <h4><%= project.title %> <br>
+          <small> <%= project.description %> </small>
+        </h4>
+        <a href="<%= project.projectSite %>">Project Site</a>, 
+        <a href="<%= project.githubUrl %>">Github Repo</a>, 
+        <a href="#" class="showGitLogsLink" data-github="<%= project.githubUrl %>">Show Git Logs</a>
+        <ul class="projectUpdatesLi" style="display:none">
+          Fetching git commits... Please wait.
+        </ul>
+      </li>
+    <% }); %>
+  </script>
+
+  <script id="adminStudentForm" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Add new Student</h3>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="alert alert-danger" style="display:none;">
+            <strong>Oh no!</strong> We need all the fields. Please retry.
+          </div>
+        <form role="form">
+          <div class="form-group">
+            <label for="adminStudentName">Student Name</label>
+            <input type="text" class="form-control" id="adminStudentName" placeholder="Enter student name">
+          </div>
+          <div class="form-group">
+            <label for="adminStudentEmail">Student Email</label>
+            <input type="email" class="form-control" id="adminStudentEmail" placeholder="Enter student email">
+          </div>
+          <div class="form-group">
+            <a href="#/app/admin/students" class="btn btn-default">Cancel &amp; take me back</a>
+            <button id="adminSaveNewStudentButton" class="btn btn-success">Add Student</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <!-- students -->
+
+  <script type="text/template" id="studentMenus">
+    <li id="dashboardLi">
+      <a href="#/app/student">Dashboard</a>
+    </li>
+    <li id="coursesLi"><a href="#/app/student/courses">Courses</a></li>
+    <li id="projectsLi"><a href="#/app/student/projects">Projects</a></li>
+    <li><a href="/mooctracker">Logout</a></li>
+  </script>
+
+  <script id="studentDashboardTemplate" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="pull-right">
+          Welcome, Student!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Your Courses</h3>
+        <hr>
+        <ul>
+        <% MoocTracker.StudentCourses.each(function(course){ %>
+          <li>
+            <h3>
+              <a href="#/app/student/course/<%= typeof course.id === 'undefined' ? course.cid : course.id  %>"><%= course.get('courseTitle') %></a> <br>
+              <small> <%= course.get('courseStart') %> to <%= course.get('courseEnd') %> </small>
+            </h3>
+          </li>
+        <% }); %>
+        </ul>
+        <p class="pull-right">
+          <a href="#/app/student/courses">View All Courses</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h3>Your Projects</h3>
+        <hr>
+        <ul>
+        <% MoocTracker.Projects.each(function(project){ %>
+          <li>
+            <h3>
+              <a href="#/app/student/project/<%= typeof project.id === 'undefined' ? project.cid : project.id  %>"><%= project.get('title') %></a> <br>
+              <small> <%= project.get('description') %> </small>
+            </h3>
+          </li>
+        <% }); %>
+        </ul>
+        <p class="pull-right">
+          <a href="#/app/student/projects">View All Projects</a>
+        </p>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="studentCoursesTemplate">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="pull-right">
+          <a href="#/app/student/courses/new" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Course</a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          Your Courses <br>
+          <small> <span id="studentCourseLength"><%= MoocTracker.StudentCourses.length %></span> registered course<% if(MoocTracker.StudentCourses.length > 1){ %>s<%}%>.</small>
+        </h3>
+        <hr>
+        <ul id="studentCourses">
+        </ul>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="studentCourseTemplate">
+    <h3>
+      <a href="#/app/student/course/<%= typeof course.id === 'undefined' ? course.cid : course.id  %>"><%= course.get('courseTitle') %></a> <br>
+      <small> <%= course.get('courseStart') %> to <%= course.get('courseEnd') %> </small>
+    </h3>
+  </script>
+
+  <script type="text/template" id="studentCoursePageTemplate">
+    <h3>
+      <a href="#/app/student/course/<%= typeof id === 'undefined' ? cid : id  %>"><%= courseTitle %></a> <br>
+      <small> <%= courseStart %> to <%= courseEnd %> </small>
+    </h3>
+
+    <div style="display:none;" id="courseTimeUpdateDiv">
+      <div class="form-group">
+        <label for="courseStartUpdate">Start Date</label>
+        <input type="date" class="form-control" id="courseStartUpdate" value="<%= courseStart %>">
+      </div>
+      <div class="form-group">
+        <label for="courseEndUpdate">End Date</label>
+        <input type="date" class="form-control" id="courseEndUpdate" value="<%= courseEnd %>">
+      </div>
+    </div>
+
+    <div>
+      <button class="btn btn-info btn-xs showStudentCourseTimeUpdate"> <span class="glyphicon glyphicon-pencil"></span> Update Time</button>
+      <button class="btn btn-danger btn-xs deleteStudentCourseButton"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    </div>
+
+    <hr>
+    <div class="col-md-12">
+      <h4>Course Updates</h4>
+      <input type="text" class="form-control" id="newProjectUpdate" placeholder="Type a new update and hit Enter!">
+      <ul>
+        <% _.each(updates, function(update){ %>
+        <li>
+          <%= update %>
+        </li>
+        <%  }); %>
+      </ul>
+    </div>
+
+  </script>
+
+  <script id="studentCourseForm" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Start new Course</h3>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="alert alert-danger" style="display:none;">
+            <strong>Oh no!</strong> We need all the fields. Please retry.
+          </div>
+        <form role="form">
+          <div class="form-group">
+            <label for="courseName">Course</label>
+            <select class="form-control" id="studentCourseName">
+            <% MoocTracker.Courses.each(function(course){ %>
+              <option value="<%= course.get('id') %>"><%= course.get('title') %></option>
+            <% }); %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="courseStart">Start Date</label>
+            <input type="date" class="form-control" id="courseStart">
+          </div>
+          <div class="form-group">
+            <label for="courseEnd">End Date</label>
+            <input type="date" class="form-control" id="courseEnd">
+          </div>
+          <div class="form-group">
+            <a href="#/app/student/courses" class="btn btn-default">Cancel &amp; take me back</a>
+            <button id="saveNewCourseButton" class="btn btn-success">Add Course</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="studentProjectsTemplate">
+    <div class="row">
+      <div class="col-md-12">
+        <p class="pull-right">
+          <a href="#/app/student/projects/new" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Project</a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          Your Projects <br>
+          <small> <span id="studentProjectLength"><%= MoocTracker.Projects.length %></span> project<% if(MoocTracker.Projects.length > 1){ %>s<%}%>.</small>
+        </h3>
+        <hr>
+        <ul id="studentProjects">
+        </ul>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="studentProjectPageTemplate">
+    <h3>
+      <a href="#/app/project/course/<%= typeof id === 'undefined' ? cid : id  %>"><%= title %></a> <br>
+      <small> <%= description %> </small>
+    </h3>
+    <p>
+      <a href="<%= projectSite %>">Project Site</a>, <a href="<%= githubUrl %>">Github Repo</a>
+    </p>
+
+    <div style="display:none;" id="projectUpdateDiv">
+      <div class="form-group">
+        <label for="projectTitleUpdate">Project Title</label>
+        <input type="text" class="form-control" id="projectTitleUpdate" value="<%= title %>" placeholder="Enter project title">
+      </div>
+      <div class="form-group">
+        <label for="projectDescriptionUpdate">Project Description</label>
+        <input type="text" class="form-control" id="projectDescriptionUpdate" value="<%= description %>" placeholder="Enter project description">
+      </div>
+      <div class="form-group">
+        <label for="projectSiteUrlUpdated">Project Site Url</label>
+        <input type="text" class="form-control" id="projectSiteUrlUpdated" value="<%= projectSite %>" placeholder="Url for your project if any">
+      </div>
+      <div class="form-group">
+        <label for="projectGithubUrlUpdate">Project Github Url</label>
+        <input type="text" class="form-control" id="projectGithubUrlUpdate" value="<%= githubUrl %>" placeholder="Url for yout Github repo">
+      </div>
+    </div>
+
+    <div>
+      <button class="btn btn-info btn-xs showProjectUpdateButton"> <span class="glyphicon glyphicon-pencil"></span> Edit</button>
+      <button class="btn btn-danger btn-xs deleteStudentProjectButton"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    </div>
+
+    <hr>
+    <div class="col-md-12">
+      <h3>Github Commit Logs for <%= title %></h3>
+      <ul id="githubCommitLogs">
+        Fetching project info from Github...
+      </ul>
+    </div>
+
+  </script>
+
+  <script type="text/template" id="studentProjectTemplate">
+    <li>
+      <h3>
+        <a href="#/app/student/project/<%= typeof project.id === 'undefined' ? project.cid : project.id %>"><%= project.get('title') %></a> <br>
+        <small> <%= project.get('description') %> </small>
+      </h3>
+    </li>
+  </script>
+
+  <script id="studentProjectForm" type="text/template">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Start new Project</h3>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="alert alert-danger" style="display:none;">
+            <strong>Oh no!</strong> We need all the fields. Please retry.
+          </div>
+        <form role="form">
+          <div class="form-group">
+            <label for="projectTitle">Project Title</label>
+            <input type="text" class="form-control" id="projectTitle">
+          </div>
+          <div class="form-group">
+            <label for="projectDescription">Project Description</label>
+            <input type="text" class="form-control" id="projectDescription">
+          </div>
+          <div class="form-group">
+            <label for="projectSiteUrl">Project Site Url</label>
+            <input type="text" class="form-control" id="projectSiteUrl">
+          </div>
+          <div class="form-group">
+            <label for="projectGithubUrl">Project Github Url</label>
+            <input type="text" class="form-control" id="projectGithubUrl">
+          </div>
+          <div class="form-group">
+            <a href="#/app/student/projects" class="btn btn-default">Cancel &amp; take me back</a>
+            <button id="saveNewProjectButton" class="btn btn-success">Add Project</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </script>
+  
+  <!-- js libs -->
+  <script src="lib/js/jquery.min.js"></script>
+  <script src="lib/js/bootstrap.min.js"></script>
+  <script src="lib/js/underscore.js"></script>
+  <script src="lib/js/backbone.js"></script>
+
+  <!-- backbone app -->
+  <script src="models.js"></script>
+  <script src="collections.js"></script>
+  <script src="student-views.js"></script>
+  <script src="admin-views.js"></script>
+  <script src="routes.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>
