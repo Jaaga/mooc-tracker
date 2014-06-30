@@ -2,12 +2,21 @@ class ProjectsController < ApplicationController
   before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update, :destroy]
 
-
+#On GET request to /projects it returns all projects.
   def index
   	@projects= Project.all
   	render json: @projects
   end
 
+
+#On GET request to /projects/id  it returns only project with that id
+  def show
+    @project = Project.find(params[:id])
+    render json: @project
+  end
+  
+
+#On POST request to /projects it creates a project with sent data
   def create
   	@project = current_user.projects.build(project_params)
     if @project.save
@@ -19,10 +28,13 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def edit
 
+#Edit action is left cause backbone handles edit on itself
+  def edit
   end
 
+
+#Send a PUT/PATCH request on /projects/id , to edit a particular project
   def update
   	@project = Project.find(params[:id])
     if @project.update_attributes(user_params)
@@ -34,11 +46,12 @@ class ProjectsController < ApplicationController
   end
 
 
-  #destroy the project object
+#Send a DELETE request on /project/id to destroy the project object
   def destroy
     @project.destroy
     redirect_to root_url
   end
+
 
   private 
   #Find if the project id is owned by the current user if yes, he is the correct user
