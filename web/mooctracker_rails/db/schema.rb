@@ -11,40 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140626092225) do
+ActiveRecord::Schema.define(version: 20140630062431) do
 
   create_table "courses", force: true do |t|
-    t.integer  "user_id"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.datetime "createdAt"
     t.datetime "updatedAt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "projects", force: true do |t|
-    t.integer  "user_id"
     t.string   "title"
     t.text     "description"
-    t.string   "tutorialUrl"
     t.string   "projectSite"
     t.string   "githubUrl"
-    t.date     "start"
-    t.date     "end"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.datetime "createdAt"
     t.datetime "updatedAt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "studentcourses", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "course"
     t.string   "courseTitle"
-    t.date     "courseStart"
-    t.date     "courseEnd"
-    t.datetime "createdAt"
+    t.datetime "courseStart"
+    t.datetime "couseEnd"
+    t.string   "updates"
+    t.datetime "createAt"
     t.datetime "updatedAt"
-    t.string   "course_id"
-    t.string   "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
