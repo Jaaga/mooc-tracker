@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update, :destroy]
+  before_action :signed_in_user, only: [:create, :edit, :update, :destroy, :index :show]
+  before_action :correct_user,   only: [:edit, :update, :destroy, :index, :show]
   before_action :admin_user,     only: [:destroy, :create, :update]
   
 

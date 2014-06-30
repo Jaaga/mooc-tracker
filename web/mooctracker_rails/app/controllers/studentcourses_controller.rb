@@ -46,8 +46,8 @@ class StudentcoursesController < ApplicationController
 
 
 #Send a DELETE request on /studentcourses/id to destroy the studentcourse object
-
   def destroy
+  	@studentcourse = Studentcourse.find(params[:id])
     @studentcourse.destroy
     redirect_to root_url
   end

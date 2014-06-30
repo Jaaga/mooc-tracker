@@ -6,7 +6,7 @@ class CreateStudentcourses < ActiveRecord::Migration
       t.string :courseTitle
       t.datetime :courseStart
       t.datetime :couseEnd
-      t.string :updates, array: true
+      t.string :updates, :array => true
       t.datetime :createAt
       t.datetime :updatedAt
 
