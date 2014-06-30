@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     render json: @project
   end
-  
+
 
 #On POST request to /projects it creates a project with sent data
   def create
@@ -48,10 +48,16 @@ class ProjectsController < ApplicationController
 
 #Send a DELETE request on /project/id to destroy the project object
   def destroy
+    @project = Project.find(params[:id])
     @project.destroy
     redirect_to root_url
   end
 
+
+  def showProjectToAdmin
+    @projects = Project.where("user_id = ?", params[:id])
+    render json: @projects
+  end
 
   private 
   #Find if the project id is owned by the current user if yes, he is the correct user

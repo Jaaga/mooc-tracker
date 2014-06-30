@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :signed_in_user, only: [:create, :edit, :update, :destroy, :index :show]
-  before_action :correct_user,   only: [:edit, :update, :destroy, :index, :show]
+  before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :admin_user,     only: [:destroy, :create, :update]
   
 
@@ -51,9 +51,13 @@ class CoursesController < ApplicationController
 
 #Send a DELETE request on /courses/id to destroy the course object
   def destroy
+    @course = Course.find(params[:id])
     @course.destroy
     redirect_to root_url
   end
+
+
+
 
 
   private

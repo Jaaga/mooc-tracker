@@ -1,6 +1,6 @@
 class StudentcoursesController < ApplicationController
-  before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update, :destroy]
+  before_action :signed_in_user, only: [:create, :edit, :update, :destroy, :index, :show]
+  before_action :correct_user,   only: [:edit, :update, :destroy, :show, :index]
 
 #On GET request to /studentcourses/ it returns all student courses.
   def index
@@ -50,6 +50,12 @@ class StudentcoursesController < ApplicationController
   	@studentcourse = Studentcourse.find(params[:id])
     @studentcourse.destroy
     redirect_to root_url
+  end
+
+
+  def showCourseToAdmin
+  	@courses = Studentcourse.where("user_id = ?" params[:id])
+  	render json: @courses
   end
 
 

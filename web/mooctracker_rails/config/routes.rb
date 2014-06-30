@@ -36,6 +36,25 @@ MooctrackerRails::Application.routes.draw do
   match "/api/course/:id", to: 'courses#destroy', via:'delete'
 
 
+  match "/api/student", to: 'users#index', via:'get'
+  match "/api/student/:id", to: 'users#show', via:'get'
+  match "/api/student/", to: 'users#create', via:'post'
+  match "/api/student/:id", to: 'users#update', via:'put'
+  match "/api/student/:id", to: 'users#destroy', via:'delete'
+
+
+
+  match "/api/student/course/:id", to: 'studentcourses#showCourseToAdmin', via:'get'
+
+
+  match "/api/student/project/:id", to: 'projects#showProjectToAdmin', via:'get'
+
+
+
+
+
+
+
   root to: "home#show"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
