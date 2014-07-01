@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140701045859) do
+ActiveRecord::Schema.define(version: 20140701051152) do
 
   create_table "courses", force: true do |t|
     t.string   "title"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20140701045859) do
     t.binary   "image"
     t.datetime "createdAt"
     t.datetime "updatedAt"
+    t.boolean  "admin",            default: false
   end
 
 end
