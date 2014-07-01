@@ -1,12 +1,17 @@
 class StudentcoursesController < ApplicationController
-  before_action :signed_in_user, only: [:create, :edit, :update, :destroy, :index, :show]
-  before_action :correct_user,   only: [:edit, :update, :destroy, :show, :index]
-  before_action :admin_user,     only: [:index, :show]
+  before_action :signed_in_user, only: [:create, :index, :show]
+  before_action :correct_user,   only: [:edit, :update, :destroy]
+  before_action :admin_user,     only: [:showCourseToAdmin]
 
 #On GET request to /studentcourses/ it returns all student courses.
   def index
-    @studentcourses = Studentcourse.all
-    render json: @studentcourses
+    if current_user.admin?
+      @studentcourses = Studentcourse.all
+      render json: @studentcourses
+    else
+      @studentcourses= Studentcourse.where("user_id = ?", current_user)
+      render json: @studentcourses
+    end
   end
 
 
@@ -62,7 +67,7 @@ class StudentcoursesController < ApplicationController
 
 private
 
-    def course_params
+    def studentcourse_params
       params.require(:studentcourse).permit(:course,:courseTitle, :updates, :courseStart, :courseEnd)
     end
 

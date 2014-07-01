@@ -1,12 +1,17 @@
 class ProjectsController < ApplicationController
-  before_action :signed_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :signed_in_user, only: [:create, :index]
   before_action :correct_user,   only: [:edit, :update, :destroy]
-  before_action :admin_user,     only: [:index, :show]
+  before_action :admin_user,     only: [:showProjectToAdmin]
 
 #On GET request to /projects it returns all projects.
   def index
-  	@projects= Project.all
-  	render json: @projects
+    if current_user.admin?
+      @projects= Project.all
+      render json: @projects
+    else
+    	@projects= Project.where("user_id = ?", current_user)
+    	render json: @projects
+    end
   end
 
 

@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
+    before_action :signed_in_user, only: [:index, :show]
 	  before_action :admin_user,     only: [:destroy, :create, :update]
 
  def index
-    @users = User.all
+    @users = User.where("admin = ?", false)
     render json: @users
   end
 
