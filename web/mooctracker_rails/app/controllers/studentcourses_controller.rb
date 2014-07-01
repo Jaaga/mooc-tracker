@@ -55,7 +55,7 @@ class StudentcoursesController < ApplicationController
 
 
   def showCourseToAdmin
-  	@courses = Studentcourse.where("user_id = ?" params[:id])
+  	@courses = Studentcourse.where("user_id = ?", params[:id])
   	render json: @courses
   end
 
@@ -67,7 +67,7 @@ private
     end
 
     def correct_user
-      @course = current_user.courses.find_by(id: params[:id])
+      @course = current_user.studentcourses.find_by(user_id: params[:id])
       redirect_to root_url if @course.nil?
     end
 

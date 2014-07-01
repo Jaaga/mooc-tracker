@@ -70,4 +70,8 @@ class ProjectsController < ApplicationController
 	  def project_params
       	params.require(:project).permit(:name, :description, :source_url, :project_site_url, :repo_url, :start, :end)
       end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
+    end
 end
