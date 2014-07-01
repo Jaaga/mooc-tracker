@@ -10,7 +10,7 @@ MooctrackerRails::Application.routes.draw do
   resource :home, only: [:show]
   resources :courses
   resources :projects
-
+  resources :students
 
 
   match "/api/studentcourse", to: 'studentcourses#index', via:'get'
@@ -36,11 +36,11 @@ MooctrackerRails::Application.routes.draw do
   match "/api/course/:id", to: 'courses#destroy', via:'delete'
 
 
+  match "/api/student/", to: 'students#create', via:'post'    
   match "/api/student", to: 'users#index', via:'get'
   match "/api/student/:id", to: 'users#show', via:'get'
-  match "/api/student/", to: 'users#create', via:'post'
-  match "/api/student/:id", to: 'users#update', via:'put'
-  match "/api/student/:id", to: 'users#destroy', via:'delete'
+  match "/api/student/:id", to: 'students#update', via:'put'
+  match "/api/student/:id", to: 'students#destroy', via:'delete'
 
 
 
