@@ -1,6 +1,7 @@
 class StudentcoursesController < ApplicationController
   before_action :signed_in_user, only: [:create, :edit, :update, :destroy, :index, :show]
   before_action :correct_user,   only: [:edit, :update, :destroy, :show, :index]
+  before_action :admin_user,     only: [:index, :show]
 
 #On GET request to /studentcourses/ it returns all student courses.
   def index
@@ -68,6 +69,10 @@ private
     def correct_user
       @course = current_user.courses.find_by(id: params[:id])
       redirect_to root_url if @course.nil?
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 
 end

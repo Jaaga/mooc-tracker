@@ -1,0 +1,52 @@
+ALL API routes their action functions and HTTP request method. 
+
+NOTE
+=========================================================================================================
+* API routes- quoted texts right after 'match' word and they are relative words
+* Action functions- quoted string right after 'to:', the word before hash in the string is name of controller and   after hash is the name of function in that controller
+* HTTP requests- the third part of line, right after 'via' 
+=========================================================================================================
+
+
+
+#GET, POST, PUT & DELETE for student who own the models , GET for admin
+ 
+  match "/api/studentcourse", to: 'studentcourses#index', via:'get'
+  match "/api/studentcourse/:id", to: 'studentcourses#show', via:'get'
+  match "/api/studentcourse/", to: 'studentcourses#create', via:'post'
+  match "/api/studentcourse/:id", to: 'studentcourses#update', via:'put'
+  match "/api/studentcourse/:id", to: 'studentcourses#destroy', via:'delete'
+
+
+#GET, POST, PUT & DELETE for student who own the models, GET for admin
+  match "/api/project", to: 'projects#index', via:'get'
+  match "/api/project/:id", to: 'projects#show', via:'get'
+  match "/api/project/", to: 'projects#create', via:'post'
+  match "/api/project/:id", to: 'projects#update', via:'put'
+  match "/api/project/:id", to: 'projects#destroy', via:'delete'
+
+
+#GET, POST, PUT & DELETE for admin, GET for student
+  match "/api/course", to: 'courses#index', via:'get'
+  match "/api/course/:id", to: 'courses#show', via:'get'
+  match "/api/course/", to: 'courses#create', via:'post'
+  match "/api/course/:id", to: 'courses#update', via:'put'
+  match "/api/course/:id", to: 'courses#destroy', via:'delete'
+
+#GET, POST, PUT & DELETE for admin
+  match "/api/student", to: 'users#index', via:'get'
+  match "/api/student/:id", to: 'users#show', via:'get'
+  match "/api/student/", to: 'students#create', via:'post' 
+  match "/api/student/:id", to: 'students#update', via:'put'
+  match "/api/student/:id", to: 'students#destroy', via:'delete'
+
+
+#GET on Courses for admin only, all courses taken by a student id 
+  match "/api/student/course/:id", to: 'studentcourses#showCourseToAdmin', via:'get'
+
+
+#GET on Projects for admin, all Projects taken by a student id 
+  match "/api/student/project/:id", to: 'projects#showProjectToAdmin', via:'get'
+
+
+
