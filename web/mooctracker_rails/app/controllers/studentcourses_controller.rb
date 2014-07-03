@@ -73,11 +73,11 @@ private
 
     def correct_user
       @course = current_user.studentcourses.find_by(user_id: params[:id])
-      redirect_to root_url if @course.nil?
+      head 403 if @course.nil?
     end
 
     def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      head 403 unless current_user.admin?
     end
 
 end

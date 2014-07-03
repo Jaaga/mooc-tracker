@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
   #Find if the project id is owned by the current user if yes, he is the correct user
 	  def correct_user
 	      @project = current_user.projects.find_by(id: params[:id])
-	      redirect_to root_url if @project.nil?
+	      head 403 if @project.nil?
 	  end
 	#strong parameters only, i.e. all coloumns that can be edit by user
 	  def project_params
@@ -77,6 +77,6 @@ class ProjectsController < ApplicationController
       end
 
     def admin_user
-      redirect_to(root_url) unless current_user.admin?
+        head 403 unless current_user.admin?
     end
 end

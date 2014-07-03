@@ -58,11 +58,11 @@ class UsersController < ApplicationController
 
     def correct_user
       @user = current_user.users.find_by(id: params[:id])
-      redirect_to root_url if @user.nil?
+      head 403 if @user.nil?
     end
 
      def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      head 403 unless current_user.admin?
     end
 
 
