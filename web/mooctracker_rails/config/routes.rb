@@ -11,7 +11,11 @@ MooctrackerRails::Application.routes.draw do
   resources :courses
   resources :projects
   resources :students
+  resources :users
 
+
+
+  match "/api/currentuser", to: 'users#currentUser', via:'get'
 
   match "/api/studentcourse", to: 'studentcourses#index', via:'get'
   match "/api/studentcourse/:id", to: 'studentcourses#show', via:'get'
@@ -48,7 +52,6 @@ MooctrackerRails::Application.routes.draw do
 
 
   match "/api/student/project/:id", to: 'projects#showProjectToAdmin', via:'get'
-
 
 
 

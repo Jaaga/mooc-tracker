@@ -3,10 +3,11 @@ class SessionsController < ApplicationController
       user = User.from_omniauth(env["omniauth.auth"])
       if user.id.present?
         session[:user_id] = user.id
-        render json: user
+        redirect_to '/dashboard'
+        #render json: user
       else
         session[:user_id] = nil
-        redirect_to root_path
+        redirect_to '/login'
       end
   end
 

@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
-    before_action :signed_in_user, only: [:index, :show]
+    before_action :signed_in_user, only: [:index, :show, :current]
 	  before_action :admin_user,     only: [:destroy, :create, :update]
 
  def index
     @users = User.where("admin = ?", false)
     render json: @users
   end
+
+ def currentUser
+  @user = User.find(session[:user_id])
+  render json: @user 
+ end
 
 #On GET request to /student/id  it returns only users with that id
   def show
