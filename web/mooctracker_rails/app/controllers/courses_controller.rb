@@ -63,7 +63,7 @@ class CoursesController < ApplicationController
   private
 
     def course_params
-      params.require(:course).permit(:courseTitle, :url, :start, :end)
+      params.require(:course).permit(:title, :createdAt, :updatedAt)
     end
 
     def correct_user

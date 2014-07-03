@@ -1,2 +1,103 @@
-<h1>Home#show</h1>
-<p>Find me in app/views/home/show.html.erb</p>
+
+<% if current_user %>
+        Signed in as <strong><%= current_user.name %></strong>! <br>
+        <%= current_user.email %>
+        <%= image_tag current_user.image %>
+        <h4>session id-<%= session[:user_id] %> </h4>
+
+        <%= form_for(@project) do |f| %>
+
+          <%= f.label :title %>
+          <%= f.text_field :title %>
+
+          <%= f.label :description %>
+          <%= f.text_field :description %>
+
+          <%= f.submit "Create my Project", class: "btn btn-lg btn-primary" %>
+        <% end %>
+
+
+
+        <%= link_to "Sign out", signout_path, id: "sign_out" %>
+      <% else %>
+        <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
+      <% end %>
+
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/mooctracker">M00C Tracker</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right" id="appMenus">
+          <li>
+            <span class="navbar-form navbar-right">
+              <a href="#/app/student" class="btn btn-success">Login</a>
+                      <a href="/auth/google_oauth2" id="sign_in">Sign in Google</a>
+            </span>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <!-- jumbotron -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Welcome to M00C Tracker!</h1>
+      <p>MoocTracker helps you track all your online courses in one place!</p>
+    </div>
+  </div>
+
+  <div class="container-fluid" id="container">
+
+  <div class="col-md-4">
+    <h3>
+      <span class="glyphicon glyphicon-ok"></span> Organize your Courses &amp; Projects
+    </h3>
+    <hr>
+    <h4>List your courses, add updates, projects and more!</h4>
+  </div>
+
+  <div class="col-md-4">
+    <h3>
+      <span class="glyphicon glyphicon-user"></span> Student Tracking
+    </h3>
+    <hr>
+    <h4>Course Coordinators can track students and see courses, updates, project logs of students.</h4>
+  </div>
+
+  <div class="col-md-4">
+    <h3>
+      <span class="glyphicon glyphicon-phone"></span> Access on Mobile
+    </h3>
+    <hr>
+    <h4>Download M00C Tracker for your Android phone from <a href="#">here</a>.</h4>
+  </div>
+    
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+      <hr>
+        <p class="pull-right">
+        MOOC Tracker is an <a href="https://github.com/Jaaga/mooc-tracker">opensource</a> app built at <a href="http://jaaga.in/">Jaaga</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- js libs -->
+  <script src="lib/js/jquery.min.js"></script>
+  <script src="lib/js/bootstrap.min.js"></script>
+
+</body>
+</html>

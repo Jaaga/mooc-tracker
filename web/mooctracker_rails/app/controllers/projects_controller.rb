@@ -73,8 +73,9 @@ class ProjectsController < ApplicationController
 	  end
 	#strong parameters only, i.e. all coloumns that can be edit by user
 	  def project_params
-      	params.require(:project).permit(:name, :description, :source_url, :project_site_url, :repo_url, :start, :end)
+      	params.require(:project).permit(:title, :description, :projectSite, :githubUrl, :createdAt, :updatedAt)
       end
+
 
     def admin_user
         head 403 unless current_user.admin?

@@ -1,36 +1,17 @@
+
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Google Auth Example App</title>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mooc Tracker By Jaaga Study</title>
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
-  </head>
-  <body>
+</head>
+<body>
     <div>
-      <% if current_user %>
-        Signed in as <strong><%= current_user.name %></strong>! <br>
-        <%= current_user.email %>
-        <%= image_tag current_user.image %>
-        <h4>session id-<%= session[:user_id] %> </h4>
 
-        <%= form_for(@project) do |f| %>
-
-          <%= f.label :title %>
-          <%= f.text_field :title %>
-
-          <%= f.label :description %>
-          <%= f.text_field :description %>
-
-          <%= f.submit "Create my Project", class: "btn btn-lg btn-primary" %>
-        <% end %>
-
-
-
-        <%= link_to "Sign out", signout_path, id: "sign_out" %>
-      <% else %>
-        <%= link_to "Sign in with Google", "/auth/google_oauth2", id: "sign_in" %>
-      <% end %>
     </div>
     <div>
     <%= yield %>

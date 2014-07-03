@@ -3,6 +3,7 @@ class StudentcoursesController < ApplicationController
   before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :admin_user,     only: [:showCourseToAdmin]
 
+
 #On GET request to /studentcourses/ it returns all student courses.
   def index
     if current_user.admin?
@@ -68,7 +69,7 @@ class StudentcoursesController < ApplicationController
 private
 
     def studentcourse_params
-      params.require(:studentcourse).permit(:course,:courseTitle, :updates, :courseStart, :courseEnd)
+      params.require(:studentcourse).permit(:course_id, :course,:courseTitle, :courseStart, :courseEnd, :updates, :createAt, :updatedAt, :user_id)
     end
 
     def correct_user
