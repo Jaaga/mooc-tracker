@@ -3,6 +3,8 @@ class ProjectsController < ApplicationController
   before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :admin_user,     only: [:showProjectToAdmin]
 
+  skip_before_filter :verify_authenticity_token
+
 #On GET request to /projects it returns all projects.
   def index
     if current_user.admin?
