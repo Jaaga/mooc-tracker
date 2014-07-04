@@ -27,7 +27,6 @@ class StudentcoursesController < ApplicationController
 
 #On POST request to /studentcourses it creates a studentcourse with sent data
   def create
-<<<<<<< HEAD
     params[:course] = params[:course].to_i
     params[:course_id] = params[:course].to_i
 
