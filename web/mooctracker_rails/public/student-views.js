@@ -253,7 +253,7 @@ var MoocTracker = MoocTracker || {};
         return undefined;
       }
       var studentCourse = {
-        course: course,
+        course_id: course,
         courseTitle: courseTitle,
         courseStart: courseStart,
         courseEnd: courseEnd
