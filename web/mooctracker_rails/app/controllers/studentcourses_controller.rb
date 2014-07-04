@@ -3,6 +3,8 @@ class StudentcoursesController < ApplicationController
   before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :admin_user,     only: [:showCourseToAdmin]
 
+  skip_before_filter :verify_authenticity_token
+
 
 #On GET request to /studentcourses/ it returns all student courses.
   def index
@@ -25,8 +27,11 @@ class StudentcoursesController < ApplicationController
 
 #On POST request to /studentcourses it creates a studentcourse with sent data
   def create
+<<<<<<< HEAD
     params[:course] = params[:course].to_i
     params[:course_id] = params[:course].to_i
+
+    print studentcourse_params
     @studentcourse = current_user.studentcourses.build(studentcourse_params)
 
     if @studentcourse.save

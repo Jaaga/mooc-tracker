@@ -7,22 +7,22 @@ var MoocTracker = MoocTracker || {};
 
   var CourseCollection = Backbone.Collection.extend({
     model: MC.Course,
-    url : '/course'
+    url : '/api/course'
   });
 
   var ProjectCollection = Backbone.Collection.extend({
     model: MC.Project,
-    url : '/project'
+    url : '/api/project'
   });
 
   var StudentCourseCollection = Backbone.Collection.extend({
     model: MC.StudentCourse,
-    url : '/studentcourse'
+    url : '/api/studentcourse'
   });
 
   var StudentCollection = Backbone.Collection.extend({
     model: MC.Student,
-    url : '/student'
+    url : '/api/student'
   });
 
   // create instances of above collections

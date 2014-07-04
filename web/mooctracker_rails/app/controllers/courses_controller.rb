@@ -2,6 +2,8 @@ class CoursesController < ApplicationController
   before_action :signed_in_user, only: [:index, :show]
   before_action :correct_user,   only: [:edit, :update, :destroy]
   before_action :admin_user,     only: [:destroy, :create, :update]
+
+  skip_before_filter :verify_authenticity_token
   
 
 #On GET request to /courses/ it returns all  courses.  
