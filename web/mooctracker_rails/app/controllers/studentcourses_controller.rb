@@ -25,6 +25,8 @@ class StudentcoursesController < ApplicationController
 
 #On POST request to /studentcourses it creates a studentcourse with sent data
   def create
+    params[:course] = params[:course].to_i
+    params[:course_id] = params[:course].to_i
     @studentcourse = current_user.studentcourses.build(studentcourse_params)
 
     if @studentcourse.save
@@ -69,7 +71,7 @@ class StudentcoursesController < ApplicationController
 private
 
     def studentcourse_params
-      params.require(:studentcourse).permit(:course_id, :course,:courseTitle, :courseStart, :courseEnd, :updates, :createAt, :updatedAt, :user_id)
+      params.require(:studentcourse).permit(:course_id, :course, :courseTitle, :courseStart, :courseEnd, :updates, :createAt, :updatedAt, :user_id)
     end
 
     def correct_user
