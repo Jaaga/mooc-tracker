@@ -338,7 +338,7 @@ var MoocTracker = MoocTracker || {};
 
     showStudentCourses: function() {
 
-      var URL = '/studentcourse'; // + '/' + student.id
+      var URL = '/api/student/course/' + this.model.id;
       $.getJSON(URL, function(data){
         var template = _.template( $('#studentCourseInfoForAdmin').html() );
         var html = template({ courses: data });
@@ -355,7 +355,7 @@ var MoocTracker = MoocTracker || {};
 
     showStudentProjects: function() {
 
-      var URL = '/project'; // + '/' + student.id
+      var URL = '/api/student/project/' + this.model.id;
       $.getJSON(URL, function(data){
         var template = _.template( $('#studentProjectInfoForAdmin').html() );
         var html = template({ projects: data });

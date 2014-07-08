@@ -55,7 +55,8 @@ class CoursesController < ApplicationController
   def destroy
     @course = Course.find(params[:id])
     @course.destroy
-    redirect_to root_url
+    render json: {success: "ok"}
+
   end
 
 

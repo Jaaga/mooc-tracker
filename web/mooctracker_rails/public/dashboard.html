@@ -61,7 +61,7 @@
     </li>
     <li id="coursesLi"><a href="#/app/admin/courses">Courses</a></li>
     <li id="studentsLi"><a href="#/app/admin/students">Students</a></li>
-    <li><a href="/sessions/destroy">Logout</a></li>
+    <li><a href="/signout">Logout</a></li>
   </script>
 
   <script id="adminDashboardTemplate" type="text/template">
@@ -158,14 +158,12 @@
   <script type="text/template" id="adminCourseTemplate">
     <h3>
       <a href="#/app/admin/course/<%= typeof course.id === 'undefined' ? course.cid : course.id  %>"><%= course.get('title') %></a> <br>
-      <small> 3 students </small>
     </h3>
   </script>
 
   <script type="text/template" id="adminCoursePageTemplate">
     <h3>
       <a href="#/app/admin/course/<%= typeof id === 'undefined' ? cid : id  %>"><%= title %></a> <br>
-      <small> 3 students </small>
     </h3>
 
     <div style="display:none;" id="adminCourseUpdateDiv">
@@ -182,12 +180,7 @@
 
     <hr>
 
-    <h5>3 students are taking this Course - </h5>
-    <ul>
-      <li>Vaibhav Mule</li>
-      <li>Vaibhav Mule</li>
-      <li>Vaibhav Mule</li>
-    </ul>
+  
 
   </script>
 
